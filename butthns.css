@@ -42,12 +42,15 @@ ul{
     cursor: pointer;
     position: relative;
     margin-left:60px;
+    color:white;
+
 }
 #buttons li{
     border-style: solid;
     border-width: thin;
-    border-color: darkslategrey;
-    background-color: darkgrey;
+    border-color: gray;
+    color:white;
+    background-color: black;
     transition: 0.5s;
 }
 
@@ -56,18 +59,21 @@ ul{
     left:70px;
     content: '>>';
     opacity: 0;
+    color: white;
     transition: 0.5s;
 
 }
 #buttons li:hover {
 
     background-color: beige;
+    color: black;
     transition: 0.9s;
 }
 #buttons li:hover:after{
 
     left:75px;
     opacity: 1;
+    color:black;
     transition: 0.2s;
 }
 
@@ -79,10 +85,11 @@ ul{
 
 #buttons2 li{
     overflow: hidden;
-    background-color: darkgrey;
+    color:white;
+    background-color: black;
     border-style: solid;
     border-width: thin;
-    border-color: darkslategrey;
+    border-color: gray;
     transition: 0.5s;
 }
 #buttons2 li:after{
@@ -100,14 +107,92 @@ ul{
 }
 #buttons2 li:hover{
     background-color: beige;
+    color: black;
     transition: 0.5s;
 }
 #buttons2 li:hover:after{
     left: 100px;
     transition: 0.5s;
+
+
 }
 #buttons2 li:active{
     background-color: skyblue;
 
 }
 
+#about{
+
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    text-align: center;
+    font-size: 10px;
+    position: absolute;
+    top: 0;
+    left:1px;
+    background-color: black;
+    border-style: solid;
+    border-color: blanchedalmond;
+    color: blanchedalmond;
+    border-width: thin;
+    z-index: 21;
+}
+#about{
+    width: 40px;
+    height: 120px;
+    font-size: 10px;
+    background-color: black;
+    color: white;
+    transition: 0.5s;
+}
+#about:hover{
+    width:60px ;
+    height: 160px;
+    font-size: 17px;
+    cursor: pointer;
+   background-color: antiquewhite;
+    color: black;
+    transition: 0.5s;
+}
+#about div{
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    width: 200px;
+    top:119px;
+    font-size: 20px;
+    left:0;
+    height:0 ;
+    border: solid;
+    border-color: antiquewhite;
+    border-width: thin;
+}
+#about div{
+    background-color: black;
+    color:black;
+    font-size: 00px;
+    width: 0px;
+    height: 0;
+
+    transition:0.5s;
+
+}
+#about:hover div{
+
+    top:165px;
+    height: 150px;
+    font-size: 20px;
+    width: 300px;
+    color:wheat;
+transition: 0.5s;
+}
+#about:active div{
+
+    height: 300px;
+    font-size: 40px;
+    width: 600px;
+    color:wheat;
+    transition: 0.1s;
+}
