@@ -1,0 +1,113 @@
+*{
+    margin:0;
+    padding: 0;
+}
+body{
+    background-color: black;
+}
+#main{
+    border-bottom: solid;
+    border-bottom-color: dimgray;
+    width: 100%;
+    background-color: black;
+    margin:0 auto ;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    padding-top: 5px;
+    z-index: 20;
+}
+#main #top{
+    height: 100px;
+    width: 800px;
+    margin: 0 auto;
+
+}
+ul{
+    margin: 5px;
+    float: left;
+}
+#buttons li,#buttons2 li{
+    font-family: "Yu Gothic";
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    display: inline-block;
+    list-style-type: none;
+    width:100px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    position: relative;
+    margin-left:60px;
+}
+#buttons li{
+    border-style: solid;
+    border-width: thin;
+    border-color: darkslategrey;
+    background-color: darkgrey;
+    transition: 0.5s;
+}
+
+#buttons li:after{
+    position: absolute;
+    left:70px;
+    content: '>>';
+    opacity: 0;
+    transition: 0.5s;
+
+}
+#buttons li:hover {
+
+    background-color: beige;
+    transition: 0.9s;
+}
+#buttons li:hover:after{
+
+    left:75px;
+    opacity: 1;
+    transition: 0.2s;
+}
+
+#buttons li:active {
+    background-color: skyblue;
+    transition: 0.1s;
+}
+
+
+#buttons2 li{
+    overflow: hidden;
+    background-color: darkgrey;
+    border-style: solid;
+    border-width: thin;
+    border-color: darkslategrey;
+    transition: 0.5s;
+}
+#buttons2 li:after{
+    background: ghostwhite;
+    display: inline-block;
+    content: "";
+    width: 20px;
+    height: 100px;
+    left: -40px;
+    top:-20px;
+    opacity: 0.5;
+    position: absolute;
+    transform: rotate(15deg);
+    transition: 0.5s;
+}
+#buttons2 li:hover{
+    background-color: beige;
+    transition: 0.5s;
+}
+#buttons2 li:hover:after{
+    left: 100px;
+    transition: 0.5s;
+}
+#buttons2 li:active{
+    background-color: skyblue;
+
+}
+
