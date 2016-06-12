@@ -51,30 +51,30 @@ ul{
     border-color: gray;
     color:white;
     background-color: black;
-    transition: 0.5s;
+    transition: 0.7s;
 }
 
 #buttons li:after{
     position: absolute;
-    left:70px;
+    left:-25px;
     content: '>>';
-    opacity: 0;
-    color: white;
+    
+    color: black;
     transition: 0.5s;
 
 }
 #buttons li:hover {
-
+	
     background-color: beige;
     color: black;
-    transition: 0.9s;
+    transition: 0.2s;
 }
 #buttons li:hover:after{
 
     left:75px;
     opacity: 1;
     color:black;
-    transition: 0.2s;
+    transition: 0.5s;
 }
 
 #buttons li:active {
