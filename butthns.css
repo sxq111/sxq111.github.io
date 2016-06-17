@@ -19,7 +19,7 @@ body{
 }
 #main #top{
     height: 100px;
-    width: 800px;
+    width: 1000px;
     margin: 0 auto;
 
 }
@@ -142,7 +142,6 @@ ul{
 #about{
     width: 40px;
     height: 120px;
-    font-size: 10px;
     background-color: black;
     color: white;
     transition: 0.5s;
@@ -190,7 +189,7 @@ transition: 0.5s;
 }
 #about:active div{
 
-    height: 300px;
+    height: 350px;
     font-size: 40px;
     width: 600px;
     color:wheat;

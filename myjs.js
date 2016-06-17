@@ -6,6 +6,7 @@ function main() {
     var b2=document.getElementById("b2");
     var b3=document.getElementById("b3");
     var b4=document.getElementById("b4");
+    var b5=document.getElementById("b5");
     b1.onclick=function (){
         if(globalid!="rain")
         {
@@ -43,5 +44,10 @@ function main() {
         }else {
             alert("this demo is running !");
         }
+    };
+    b5.onclick=function () {
+        alert("This Demo Needs to open another window");
+        globalid = "drawingBoard";
+       window.open("canvas_blockdraw/index.html");
     };
 }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Particle Web</title>
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body{
+        position: relative;
+        width: 3000px;
+        height: 6000px;
+    }
+        #canvas{
+            display: block;
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            border: solid;
+            border-width: 1px;
+        }
+        #mycolor{
+            width: 700px;
+
+            background-color: wheat;
+            text-align: center;
+            padding: 4px;
+            position: fixed;
+            top: 0;
+            right: 0px;
+            border: solid;
+            border-width: 1px;
+        }
+        #mycolor .colors{
+            border: solid;
+            border-width: 3px;
+            border-color: peachpuff;
+        }
+
+        #mycolor .colors.active
+        {
+            border: solid;
+            border-width: 3px;
+            border-color: crimson;
+        }
+    </style>
+  </head>
+  <body>
+        <canvas id="canvas"></canvas>
+        <div id="mycolor">
+            1<input type="color" class="colors">
+            2<input type="color" class="colors">
+            3<input type="color" class="colors">
+            4<input type="color" class="colors">
+            5<input type="color" class="colors">
+            6<input type="color" class="colors">
+            7<input type="color" class="colors">
+            8<input type="color" class="colors">
+            9<input type="color" class="colors">
+            <br/>
+			<span>Colors(use number keys on keyboard to switch color)</span>
+            <br/>
+            <span>Choose Size of Brush</span>
+            <select id="brushsize" >
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="7">7</option>
+                <option value="9">9</option>
+                <option value="11">11</option>
+                <option value="13">13</option>
+                <option value="15">15</option>
+                <option value="19">19</option>
+                <option value="23">23</option>
+                <option value="35">35</option>
+                <option value="59">59</option>
+                <option value="99">99</option>
+            </select>
+            <br/>
+            <span>Choose Size of Drawing Board</span>
+            <select id="cansize" >
+                <option value="400">400*400</option>
+                <option value="800">800*800</option>
+                <option value="1000">1200*1200</option>
+                <option value="1600">1600*1600</option>
+                <option value="2000">2000*2000</option>
+                <option value="2400">2400*2400</option>
+            </select>
+        </div>
+
+        <script src="index.js" charset="utf-8"></script>
+
+    </body>
+</html>
