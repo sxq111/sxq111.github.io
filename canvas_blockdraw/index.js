@@ -8,13 +8,14 @@ window.onload=main;
 function main()
 {
 
-    var str=prompt("Input a number(can divide 400 without reamin and less than 400)");
-    var num=parseInt( str);
-    if(400%num!=0||isNaN(num))
-    {
-        alert("Wrong Input");
-        return;
-    }
+   // var str=prompt("Input a number(can divide 400 without reamin and less than 400)");
+    var num=10;
+    //if(400%num!=0||isNaN(num))
+    //{
+    //    alert("Wrong Input");
+    //    return;
+   // }
+    var maxrectlist=undefined;
     var rectlist={};
     var draglist={};
     var canvasEl = document.getElementById('canvas');
@@ -38,7 +39,36 @@ function main()
     var ifgrid=true;
     var gridstyle=0;
     var ifmousein=false;
-
+    var mysize;
+    var oldsize;
+    var maxsiz=320;
+    var minsize=10;
+    var changenumbtn=document.getElementById("change_grid");
+    var lastpos=[0,0];
+    var movecolor=document.getElementById("mycolor");
+    movecolor.onmousedown=function (e1) {
+        var yt=e1.clientY-movecolor.offsetTop;
+        var xt=e1.clientX-movecolor.offsetLeft;
+        movecolor.onmousemove=function (e2) {
+           // alert(e1.clientX);
+          //  alert(e2.clientX);
+            //alert(e2.clientY-e1.clientY);
+            movecolor.style.top=e2.clientY-yt+"px";
+            movecolor.style.left=e2.clientX-xt+"px";
+        }
+    }
+    movecolor.onmouseup=function () {
+        movecolor.onmousemove=function () {
+        }
+    }
+    changenumbtn.onclick=function () {
+        num=num*2;
+        if(num>maxsiz)
+        {
+            num=minsize;
+        }
+        renum();
+    }
     gridbutton.onclick=function () {
         ifgrid=!ifgrid;
         draw_allRects();
@@ -78,15 +108,40 @@ function main()
     cansizelist.onchange=function (ele) {
         if(ele.srcElement)
         {
-           myresize(ele.srcElement.options[ ele.srcElement.selectedIndex].value);
+            oldsize=mysize;
+            mysize=ele.srcElement.options[ ele.srcElement.selectedIndex].value;
+            myresize(mysize);
         }else
         {
-           myresize(ele.target.options[ ele.target.selectedIndex].value);
+            oldsize=mysize;
+            mysize=ele.target.options[ ele.target.selectedIndex].value;
+            myresize(mysize);
         }
     }
+    function renum() {
 
+        var templist =rectlist;
+        rectlist={};
+        cols=num;
+        rows=num;
+        init_rectlist();
+        if(num==minsize)
+        {
+            maxrectlist=templist;
+        }
+        for(var i in rectlist)
+        {
+            if(templist[i]){
+                rectlist[i]=templist[i];
+            }else{
+                if(maxrectlist){
+                    rectlist[i]=maxrectlist[i];
+                }
+            }
+        }
 
-
+        myresize();
+    }
     for(var i=0;i<mcols.length;i++)
     {
         mcols[i].onclick=function (ele) {
@@ -115,8 +170,6 @@ function main()
              rectlist[m+","+n]={mycol:"#000"};
          }
      }
-
-
  }
  function changeRect(ex,ey){
      if(!rectlist[ex + "," + ey]){
@@ -145,10 +198,15 @@ function main()
                     if(gridstyle==1||gridstyle==2)ctx.strokeStyle = brushElement.value;
                     if(gridstyle==3)ctx.strokeStyle = "#000";
                 }
+                ctx.moveTo(0+0.5,Math.floor(i*block_h)+0.5);
+                ctx.lineTo(Math.floor(canwidth)+0.5,Math.floor(i*block_h)+0.5);
+                ctx.stroke();
+            }else {
+                    ctx.moveTo(0+0.5,Math.floor(i*block_h)+0.5);
+                    ctx.lineTo(Math.floor(canwidth)+0.5,Math.floor(i*block_h)+0.5);
+                    ctx.stroke();
             }
-            ctx.moveTo(0+0.5,Math.floor(i*block_h)+0.5);
-            ctx.lineTo(Math.floor(canwidth)+0.5,Math.floor(i*block_h)+0.5);
-            ctx.stroke();
+
         }
         for(var i=0;i<=cols;i++)
         {
@@ -162,16 +220,19 @@ function main()
                     if(gridstyle==1||gridstyle==2)ctx.strokeStyle = brushElement.value;
                     if(gridstyle==3)ctx.strokeStyle = "#000";
                 }
+                ctx.moveTo(Math.floor(i * block_w)+0.5, 0+0.5);
+                ctx.lineTo(Math.floor(i * block_w)+0.5,Math.floor(canheight)+0.5);
+                ctx.stroke();
+            }else {
+                    ctx.moveTo(Math.floor(i * block_w) + 0.5, 0 + 0.5);
+                    ctx.lineTo(Math.floor(i * block_w) + 0.5, Math.floor(canheight) + 0.5);
+                    ctx.stroke();
             }
-            ctx.moveTo(Math.floor(i * block_w)+0.5, 0+0.5);
-            ctx.lineTo(Math.floor(i * block_w)+0.5,Math.floor(canheight)+0.5);
-            ctx.stroke();
+
         }
     }
 
-
  document.addEventListener("keydown",function (e) {
-
      var num=e.keyCode-49;
      if(num>=0&&num<mcols.length)
      {
@@ -182,8 +243,6 @@ function main()
          brushElement = mcols[num];
      }
  });
-
-
     canvasEl.onmousemove=function (e) {
 
         var cx=e.clientX+document.body.scrollLeft;
@@ -195,6 +254,8 @@ function main()
         }
         if(cx<canvasEl.width && cy<canvasEl.height)
         {
+            lastpos[0]=mousePos[0];
+            lastpos[1]=mousePos[1];
             mousePos[0]= Math.floor(cx/block_w);
             mousePos[1]= Math.floor(cy/block_h);
         }
@@ -272,7 +333,6 @@ function main()
 
 
   function draw_dragline(){
-
         ctx.strokeStyle="#000";
         if(brushElement){
             ctx.strokeStyle=brushElement.value;
@@ -285,7 +345,7 @@ function main()
                 var x = parseInt(arr[0]);
                 var y = parseInt(arr[1]);
                 ctx.beginPath();
-                ctx.arc(Math.floor(x * block_w + block_w / 2), Math.floor(y * block_h + block_h / 2), 0.05, 0, 2 * Math.PI);
+                ctx.arc(Math.floor(x * block_w + block_w / 2), Math.floor(y * block_h + block_h / 2), block_h/4, 0, 2 * Math.PI);
                 ctx.stroke();
             }else {
                 //alert("drawedalready");

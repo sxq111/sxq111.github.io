@@ -10,8 +10,8 @@
     }
     body{
         position: relative;
-        width: 4000px;
-        height: 3500px;
+
+
     }
         #canvas{
             display: block;
@@ -20,6 +20,7 @@
             position: absolute;
             top: 5px;
             left: 5px;
+
             border: solid;
             border-width: 1px;
 
@@ -83,10 +84,13 @@
         height: 85px;
         transition: 0.5s;
     }
+
     </style>
   </head>
   <body>
-        <canvas id="canvas"></canvas>
+        <canvas id="canvas">
+
+        </canvas>
         <div id="mycolor">
             1<input type="color" class="colors">
             2<input type="color" class="colors">
@@ -119,12 +123,10 @@
             <br/>
             <span>Board Size</span>
             <select id="cansize" >
-                <option value="400">400*400</option>
-                <option value="800">800*800</option>
-                <option value="1000">1200*1200</option>
-                <option value="1600">1600*1600</option>
-                <option value="2000">2000*2000</option>
-                <option value="2400">2400*2400</option>
+                <option value="640">640</option>
+                <option value="1280">1280</option>
+                <option value="2560">2560</option>
+                <option value="3200">3200</option>
             </select>
             <br/>
 
@@ -133,6 +135,10 @@
             </div>
             <div id="save" class="divbtn" >
                 <span  id="btn-download">Watch Image</span>
+            </div>
+            <br/>
+            <div id="change_grid" class="divbtn">
+                Change block number
             </div>
         </div>
 
