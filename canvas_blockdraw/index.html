@@ -10,8 +10,8 @@
     }
     body{
         position: relative;
-        width: 3000px;
-        height: 6000px;
+        width: 4000px;
+        height: 3500px;
     }
         #canvas{
             display: block;
@@ -22,10 +22,11 @@
             left: 5px;
             border: solid;
             border-width: 1px;
+
         }
         #mycolor{
             width: 700px;
-
+            cursor: move;
             background-color: wheat;
             text-align: center;
             padding: 4px;
@@ -36,6 +37,7 @@
             border-width: 1px;
         }
         #mycolor .colors{
+            cursor: pointer;
             border: solid;
             border-width: 3px;
             border-color: peachpuff;
@@ -47,6 +49,40 @@
             border-width: 3px;
             border-color: crimson;
         }
+
+        .divbtn{
+            display: inline-block;
+            color: black;
+            cursor: pointer;
+            width: 80px;
+            margin: auto;
+            margin-top: 10px;
+        }
+    .divbtn{
+        background-color:lightcoral;
+        transition: 0.5s;
+    }
+    .divbtn:hover{
+        background-color: cadetblue;
+        transition: 0.5s;
+    }
+    #btn-download:after{
+        overflow: hidden;
+        display: block;
+        width: 250px;
+        position: absolute;
+        background-color: coral;
+        bottom:-70px;
+        content: "The image will be showed in a new window,in the window you can click right button and save it";
+    }
+    #btn-download:after{
+        height: 0;
+        transition: 0.5s;
+    }
+    #btn-download:hover:after{
+        height: 85px;
+        transition: 0.5s;
+    }
     </style>
   </head>
   <body>
@@ -62,9 +98,9 @@
             8<input type="color" class="colors">
             9<input type="color" class="colors">
             <br/>
-			<span>Colors(use number keys on keyboard to switch color)</span>
+			<span>Colors (use number keys to switch quickly)</span>
             <br/>
-            <span>Choose Size of Brush</span>
+            <span>Brush Size</span>
             <select id="brushsize" >
                 <option value="1">1</option>
                 <option value="3">3</option>
@@ -81,7 +117,7 @@
                 <option value="99">99</option>
             </select>
             <br/>
-            <span>Choose Size of Drawing Board</span>
+            <span>Board Size</span>
             <select id="cansize" >
                 <option value="400">400*400</option>
                 <option value="800">800*800</option>
@@ -90,6 +126,14 @@
                 <option value="2000">2000*2000</option>
                 <option value="2400">2400*2400</option>
             </select>
+            <br/>
+
+            <div id="ifgrid" class="divbtn">
+                Switch Grid
+            </div>
+            <div id="save" class="divbtn" >
+                <span  id="btn-download">Watch Image</span>
+            </div>
         </div>
 
         <script src="index.js" charset="utf-8"></script>

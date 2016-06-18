@@ -7,7 +7,8 @@ window.onload=main;
 
 function main()
 {
-    var str=prompt("Input a number(which can be divided by 400 and less than 400)");
+
+    var str=prompt("Input a number(can divide 400 without reamin and less than 400)");
     var num=parseInt( str);
     if(400%num!=0||isNaN(num))
     {
@@ -33,8 +34,18 @@ function main()
     var brushElement=undefined;
     var canvasclicked=true;
     var mousdown=false;
+    var gridbutton=document.getElementById("ifgrid");
+    var ifgrid=true;
+    var gridstyle=0;
+    var ifmousein=false;
 
+    gridbutton.onclick=function () {
+        ifgrid=!ifgrid;
+        draw_allRects();
+    }
+    var datestart=new Date().getTime();
     var brushsizelist=document.getElementById("brushsize");
+
     brushsizelist.onchange=function (ele) {
         if(ele.srcElement)
         {
@@ -44,10 +55,15 @@ function main()
             brushsize=parseInt( ele.target.options[ ele.target.selectedIndex].value);
         }
     }
+    var button = document.getElementById('btn-download');
+
+    button. onclick=function (e) {
+        var dataURL = canvasEl.toDataURL('image/png');
+        window.open(dataURL);
+    };
 
     var cansizelist=document.getElementById("cansize");
     function myresize(thesize) {
-
 
         canvasEl.style.width=thesize+"px";
         canvasEl.style.height=thesize+"px";
@@ -69,11 +85,7 @@ function main()
         }
     }
 
-    if(canvasEl.height%rows!=0||canvasEl.width%cols!=0)
-    {
-       // alert("请选择能被"+canvasEl.height+"和"+canvasEl.width+"整除的行列数");
-       // return;
-    }
+
 
     for(var i=0;i<mcols.length;i++)
     {
@@ -116,6 +128,10 @@ function main()
  }
  function draw_grid() {
     // ctx.strokeStyle=getRgb(15,15,15);
+     if(!ifgrid)
+     {
+         return;
+     }
      var k=Math.round((brushsize-1)/2);
         for(var i=0;i<=rows;i++)
         {
@@ -123,9 +139,11 @@ function main()
             ctx.lineWidth=1;
             ctx.strokeStyle=getRgb(25,25,25);
             if(i>=mousePos[1]-k&&i<=mousePos[1]+k+1){
-                ctx.strokeStyle="#000";
-                if(brushElement) {
-                    ctx.strokeStyle = brushElement.value;
+                ctx.strokeStyle=getRgb(25,25,25);;
+                if(brushElement&&ifmousein) {
+                    if(gridstyle==0)ctx.strokeStyle = "#FFF";
+                    if(gridstyle==1||gridstyle==2)ctx.strokeStyle = brushElement.value;
+                    if(gridstyle==3)ctx.strokeStyle = "#000";
                 }
             }
             ctx.moveTo(0+0.5,Math.floor(i*block_h)+0.5);
@@ -138,9 +156,11 @@ function main()
             ctx.lineWidth=1;
             ctx.strokeStyle=getRgb(25,25,25);
             if(i>=mousePos[0]-k&&i<=mousePos[0]+k+1){
-                ctx.strokeStyle="#000";
-                if(brushElement) {
-                    ctx.strokeStyle = brushElement.value;
+                ctx.strokeStyle=getRgb(25,25,25);;
+                if(brushElement&&ifmousein) {
+                    if(gridstyle==0)ctx.strokeStyle = "#FFF";
+                    if(gridstyle==1||gridstyle==2)ctx.strokeStyle = brushElement.value;
+                    if(gridstyle==3)ctx.strokeStyle = "#000";
                 }
             }
             ctx.moveTo(Math.floor(i * block_w)+0.5, 0+0.5);
@@ -163,6 +183,7 @@ function main()
      }
  });
 
+
     canvasEl.onmousemove=function (e) {
 
         var cx=e.clientX+document.body.scrollLeft;
@@ -177,6 +198,7 @@ function main()
             mousePos[0]= Math.floor(cx/block_w);
             mousePos[1]= Math.floor(cy/block_h);
         }
+
         if(mousdown)
         {
             var k=Math.round((brushsize-1)/2);
@@ -185,8 +207,7 @@ function main()
                     if(draglist[c+","+r])
                     {}
                     else{
-                        draglist[c+","+r]=
-                        {
+                        draglist[c+","+r]= {
                             isexist:true,
                             drawed:false
                         };
@@ -195,6 +216,12 @@ function main()
             }
 
         }
+    }
+    canvasEl.onmouseover=function () {
+        ifmousein=true;
+    }
+    canvasEl.onmouseout=function () {
+        ifmousein=false;
     }
 
   canvasEl.onclick=function () {
@@ -210,6 +237,7 @@ function main()
     }
 
   canvasEl.onmousedown=function (e){
+      //alert(parseInt(brushElement.value),16);
       mousdown=true;
 
   }
@@ -267,14 +295,21 @@ function main()
 
   function update() 
   {
+      var datenow=new Date().getTime();
+      if(datenow-datestart>150)
+      {
+          datestart=datenow;
+          gridstyle=gridstyle+1;
+          if(gridstyle>3)
+          {
+              gridstyle=0;
+          }
+      }
       render();
-
       window.requestAnimationFrame(update);
-
   }
   function  render() 
   {
-
       draw_dragline();
       draw_grid();
   }
