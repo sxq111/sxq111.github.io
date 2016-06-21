@@ -355,21 +355,24 @@ function main()
 
   function update() 
   {
+
+      render();
+      window.requestAnimationFrame(update);
+  }
+  function  render() 
+  {
       var datenow=new Date().getTime();
+
       if(datenow-datestart>150)
       {
           datestart=datenow;
+        
           gridstyle=gridstyle+1;
           if(gridstyle>3)
           {
               gridstyle=0;
           }
       }
-      render();
-      window.requestAnimationFrame(update);
-  }
-  function  render() 
-  {
       draw_dragline();
       draw_grid();
   }
