@@ -183,15 +183,15 @@ ul{
 
     top:165px;
     height: 150px;
-    font-size: 18px;
+    font-size: 16px;
     width: 300px;
     color:wheat;
 transition: 0.5s;
 }
 #about:active div{
 
-    height: 350px;
-    font-size:36px;
+    height: 300px;
+    font-size:32px;
     width: 600px;
     color:wheat;
     transition: 0.1s;
