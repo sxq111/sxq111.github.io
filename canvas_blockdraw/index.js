@@ -1,5 +1,4 @@
 window.onload=main;
-
   function getRgb(r,g,b)
   {
     return "rgb("+ r+","+g+","+b+")";
@@ -58,8 +57,9 @@ function main()
         }
     }
     movecolor.onmouseup=function () {
-        movecolor.onmousemove=function () {
-        }
+        movecolor.onmousemove=null;
+        //function () {
+        //}
     }
     changenumbtn.onclick=function () {
         num=num*2;
@@ -147,6 +147,7 @@ function main()
         mcols[i].onclick=function (ele) {
             for(var n=0;n<mcols.length;n++){
                 mcols[n].className="colors";
+
             }
             if(ele.srcElement)
             {
