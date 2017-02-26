@@ -183,7 +183,7 @@ ul{
 
     top:165px;
     height: 190px;
-    font-size: 16px;
+    font-size: 13px;
     width: 300px;
     color:wheat;
 transition: 0.5s;
@@ -191,7 +191,7 @@ transition: 0.5s;
 #about:active div{
 
     height: 380px;
-    font-size:32px;
+    font-size:27px;
     width: 600px;
     color:wheat;
     transition: 0.1s;
