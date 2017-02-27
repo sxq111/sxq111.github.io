@@ -7,6 +7,7 @@ function main() {
     var b3=document.getElementById("b3");
     var b4=document.getElementById("b4");
     var b5=document.getElementById("b5");
+    var b6=document.getElementById("b6");
     b1.onclick=function (){
         if(globalid!="rain")
         {
@@ -47,7 +48,12 @@ function main() {
     };
     b5.onclick=function () {
         alert("This Demo Needs to open another window");
-        globalid = "drawingBoard";
+        globalid = "blockdrawingBoard";
        window.open("canvas_blockdraw/index.html");
+    };
+    b6.onclick=function(){
+         globalid = "drawboard";
+        alert("This project is not finished yet");
+       window.open("drawboard/index.html");
     };
 }
