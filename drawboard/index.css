@@ -9,22 +9,22 @@ body{
     border: 1px solid black;
 }
 #brush{
-    width: 260px;
+    width: 460px;
     height: 1px;
     margin: 0 auto;
     position: relative;
     /*border: 1px solid black;    */
 }
 #brush #brushtools{
-    width: 250px;
-    height: 100px;
+    width: 450px;
+    height: 160px;
     border: 1px solid red; 
     background-color: gray;  
     position: absolute;
    
 }
 #brush #brushtools{
-    top:-80px;
+    top:-140px;
    transition: 0.5s;
    
 }
@@ -39,7 +39,7 @@ body{
     background-color: tan;
  width: 70px;
  height: 20px;
- margin: 78px auto;
+ margin: 138px auto;
  
 }
 #canvas{

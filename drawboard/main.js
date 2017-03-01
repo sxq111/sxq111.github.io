@@ -11,18 +11,17 @@ var sxqtools={
         }
         return arr;
     },
-    currentColor:{r:0,g:0,b:0},
+    currentColor:null,
     toRGB:function(r,g,b){
         return "rgb("+r+","+g+","+b+")";
-    }
+    },
+
 };
 
 function main()
 {
     var canvas=document.getElementById("canvas");
     var context=canvas.getContext("2d");
-   
-
     // context.moveTo(0,0);
     // context.lineTo(200,200);
     // context.stroke();
@@ -201,6 +200,7 @@ colors.ondblclick=function(e)
             colorboard.style.display="block";
             console.log(getComputedStyle(eventtarget,null).backgroundColor);
             origionColor=getComputedStyle(eventtarget,null).backgroundColor;
+            console.log("origionColor: "+origionColor);
             console.log("picker");
             break;
     }
@@ -224,6 +224,8 @@ colors.onclick=function(e)
                 selectedtarget.style.borderColor="#000";
             }
             selectedtarget=eventtarget;
+            sxqtools.currentColor=selectedtarget;
+            console.log("currentColor:"+sxqtools.currentColor.style.backgroundColor);
             eventtarget.style.borderColor="#ff0";
             var colorboard=document.getElementById("pickerdiv");
             break;
@@ -236,14 +238,20 @@ colors.onclick=function(e)
     var path=new Path2D();
     canvas.onmousedown=function(e)
     {
-        context.strokeStyle="#000"
-        context.lineWidth=10;
+        if(sxqtools.currentColor &&sxqtools.currentColor.style.backgroundColor)
+        {
+            context.strokeStyle=sxqtools.currentColor.style.backgroundColor;
+        }else{
+            context.strokeStyle="#888";
+        }
+        
+        context.lineWidth=3;
         currentpath.moveTo(e.offsetX,e.offsetY);
         path.moveTo(e.offsetX,e.offsetY);
         e.target.onmousemove=function(e2)
         {
-            context.fillStyle="#000";
-            context.lineCap="round";//---很重要，如果是默认值会导致意想不到结果---
+            //context.fillStyle="#000";
+             context.lineCap="round";//---很重要，如果是默认值会导致意想不到结果---
              currentpath.lineTo(e2.offsetX,e2.offsetY);
              //currentpath.arc(e2.offsetX,e2.offsetY,1,0,2*Math.PI,false);
              context.stroke(currentpath);
