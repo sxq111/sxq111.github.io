@@ -74,7 +74,7 @@ body{
     width: 30px;
     height: 21px;
     cursor: pointer;
-    background-color: gray;
+    background-color: rgb(128, 128, 128);
 }
 #colors .colorpicker:hover{
     border-style:dotted;
@@ -83,7 +83,7 @@ body{
 #pickerdiv{
     width: 100%;
     height: 100%;
-    background-color: rgba(128, 128, 128, 0.7);
+    background-color: rgba(128, 128, 128, 0.25);
     position: fixed;
     z-index: 10;
     display: none;
@@ -105,6 +105,30 @@ body{
 #pickerdiv .buttons button{
     display: inline-block;
     width: 65px;
+}
+#touchbar_container{
+    position: relative;
+    width: 200px;
+    height: 10px;
+    border: 1px solid cadetblue;
+    /*position:  relative;*/
+    margin-left: auto;
+    margin-right: auto;
+    background: -webkit-linear-gradient(left, black , white); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, black, white); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, black, white); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, black , white); /* 标准的语法（必须放在最后） */
+}
+#touchbar_container #touchbar_bar{
+    width: 10px;
+    height: 8px;
+    border: 1px solid yellowgreen;
+    background-color: yellow;
+    cursor: pointer;
+    margin: 0 auto;
+    position: absolute;
+    left: 95px;
+
 }
 .container{
     padding:0 2px;

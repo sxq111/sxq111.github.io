@@ -11,15 +11,69 @@ var sxqtools={
         }
         return arr;
     },
-    currentColor:null,
+    currentColor:null,//当前选择的取色块
     toRGB:function(r,g,b){
         return "rgb("+r+","+g+","+b+")";
     },
+    setColor:function(r,g,b,radius){
+        radius=Math.round(radius*100);
+        radius=radius/100;
+        if(radius>=0&&radius<=0.5){
+            console.log("in 1");
+            sxqtools.currentColor.style.backgroundColor=sxqtools.toRGB(Math.round(r*radius/0.5),
+            Math.round(g*radius/0.5),
+            Math.round(b*radius/0.5));
+        }
+        if(radius>0.5&&radius<=1){
+            console.log("in 12");
+            sxqtools.currentColor.style.backgroundColor=sxqtools.toRGB(Math.round(r+(255-r)*(radius-0.5)/0.5),
+           Math.round(g+(255-g)*(radius-0.5)/0.5),
+           Math.round(b+(255-b)*(radius-0.5)/0.5));
+        }
+        console.log(radius);
+    //console.log(selectedtarget.style.backgroundColor);
+    }
 
 };
 
 function main()
 {
+    var temp={name:"temp",
+        fun:function(){
+            console.log(this);
+        }    
+    };
+    temp.fun();
+    setTimeout(temp.fun,1000);
+    // function foo(){
+    //     var i=111;
+    //     return {val:i,
+    //             see: function(){
+    //                 console.log(i);
+    //             }
+    //             };
+    // }
+    // var temp=foo();
+    // temp.val=222; 单纯的对象不能形成闭包，原因是对象的属性是值传递，只有函数才形成闭包
+    // temp.see();
+    // console.log(temp.val);
+    // for(var i=0;i<5;i++)
+    // {
+    //     setTimeout((function(temp){
+    //         return function(){
+    //             console.log(temp);
+    //         };
+    //     })(i),1000*i);
+    // }闭包和循环测试
+   // console.log(sxqtools.indexOf);
+//    for(let i=0;i<5;i++)
+//    {
+//        setTimeout(function () {
+//            console.log(i);
+//        },1000*i);
+//    }
+    
+   console.log(sxqtools.hasOwnProperty("toRGB"));
     var canvas=document.getElementById("canvas");
     var context=canvas.getContext("2d");
     // context.moveTo(0,0);
@@ -137,16 +191,26 @@ pickercanvas.onmousemove=function(e){
     for(let x=0;x<8;x++){
         for(let y=0;y<8;y++)
         {
-            pickercontext.strokeStyle="#000";
+            //pickercontext.strokeStyle="#000";
             pickercontext.strokeRect(x*blockwidth,y*blockheight,blockwidth,blockheight);
         }
     }
-    pickercontext.lineWidth=2;
+   // pickercontext.lineWidth=2;
     pickercontext.strokeStyle="#fff";
     //console.log(e.offsetX+','+e.offsetY);
     if(e.offsetX>0&&e.offsetX<pickercanvas.width&&e.offsetY>0&&e.offsetY<pickercanvas.height)
     {
         pickercontext.strokeRect(Math.floor(e.offsetX/blockwidth)*blockwidth,Math.floor(e.offsetY/blockheight)*blockheight,blockwidth,blockheight);
+    }
+}
+pickercanvas.onmouseout=function(){
+    pickercontext.strokeStyle="#000";
+    for(let x=0;x<8;x++){
+        for(let y=0;y<8;y++)
+        {
+            //pickercontext.strokeStyle="#000";
+            pickercontext.strokeRect(x*blockwidth,y*blockheight,blockwidth,blockheight);
+        }
     }
 }
 
@@ -165,14 +229,20 @@ buttonok.onclick=function(){
 
 var  origionColor;
 var selectedtarget;
+var radius=0.5;
+var pickerr=128,pickerg=128,pickerb=128;
 pickercanvas.onclick=function(e)
 {
     var x=Math.floor(e.offsetX/blockwidth);
     var y=Math.floor(e.offsetY/blockheight);
     var pixels=pickercontext.getImageData(x*blockwidth+5,y*blockheight+5,1,1);
     var data=pixels.data;
-    selectedtarget.style.backgroundColor=sxqtools.toRGB(data[0],data[1],data[2]);
-    console.log(selectedtarget.style.backgroundColor);
+    pickerr=data[0];
+    pickerg=data[1];
+    pickerb=data[2];
+    sxqtools.setColor(data[0],data[1],data[2],radius);
+    // selectedtarget.style.backgroundColor=sxqtools.toRGB(data[0],data[1],data[2]);
+    // console.log(selectedtarget.style.backgroundColor);
     //console.log(sxqtools.toRGB(data[0],data[1],data[2]));
 }
 //colors.style.background
@@ -194,14 +264,24 @@ colors.ondblclick=function(e)
             if(selectedtarget){
                 selectedtarget.style.borderColor="#000";
             }
+            radius=0.5;
+            touchbar.style.left=Math.round(radius*190)+"px";
             selectedtarget=eventtarget;
             eventtarget.style.borderColor="#ff0";
             var colorboard=document.getElementById("pickerdiv");
             colorboard.style.display="block";
-            console.log(getComputedStyle(eventtarget,null).backgroundColor);
+            //console.log(getComputedStyle(eventtarget,null).backgroundColor);
+            var reg=/^rgb\(([\d\s]+)\,([\d\s]+)\,([\d\s]+)\)$/;//从字符串中取3原色值的正则
+            {
+                let arr= reg.exec(getComputedStyle(eventtarget,null).backgroundColor);
+                pickerr=Number.parseInt(arr[1]);
+                pickerg=Number.parseInt(arr[2]);
+                pickerb=Number.parseInt(arr[3]);
+            }
+           // console.log(reg.exec(getComputedStyle(eventtarget,null).backgroundColor));
             origionColor=getComputedStyle(eventtarget,null).backgroundColor;
-            console.log("origionColor: "+origionColor);
-            console.log("picker");
+            //console.log("origionColor: "+origionColor);
+            //console.log("picker");
             break;
     }
 }
@@ -231,7 +311,29 @@ colors.onclick=function(e)
             break;
     }
 }
+//----------------picker touchbar---------------
+var touch_base=document.getElementById("touchbar_container");
+var touchbar=document.getElementById("touchbar_bar");
+touchbar.style.left=Math.round(radius*190)+"px";
 
+touchbar.onmousedown=function(e1){
+    var x_start=e1.offsetX;
+    touchbar.onmousemove=function(e2){
+        var x=e2.offsetX-x_start;
+        touchbar.style.left=touchbar.offsetLeft+x+"px"
+        touchbar.offsetLeft<0? touchbar.style.left="0px":null;
+        touchbar.offsetLeft>190? touchbar.style.left="190px":null;
+        radius=touchbar.offsetLeft/190;
+        sxqtools.setColor(pickerr,pickerg,pickerb,radius);
+      //  console.log(touchbar.offsetLeft/190);
+    }
+}
+touchbar.onmouseup=function(){
+    touchbar.onmousemove=null;
+}
+
+
+//console.log(touchbar);
 //-------------draw methods--------------
     var currentpath=new Path2D();
     var pathlist=[];
