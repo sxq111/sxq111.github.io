@@ -38,13 +38,13 @@ var sxqtools={
 
 function main()
 {
-    var temp={name:"temp",
-        fun:function(){
-            console.log(this);
-        }    
-    };
-    temp.fun();
-    setTimeout(temp.fun,1000);
+    // var temp={name:"temp",
+    //     fun:function(){
+    //         console.log(this);
+    //     }    
+    // };
+    // temp.fun();
+    // setTimeout(temp.fun,1000);
     // function foo(){
     //     var i=111;
     //     return {val:i,
@@ -229,7 +229,7 @@ buttonok.onclick=function(){
 
 var  origionColor;
 var selectedtarget;
-var radius=0.5;
+//var radius=0.5;
 var pickerr=128,pickerg=128,pickerb=128;
 pickercanvas.onclick=function(e)
 {
@@ -240,7 +240,7 @@ pickercanvas.onclick=function(e)
     pickerr=data[0];
     pickerg=data[1];
     pickerb=data[2];
-    sxqtools.setColor(data[0],data[1],data[2],radius);
+    sxqtools.setColor(data[0],data[1],data[2],mybar.radius);
     // selectedtarget.style.backgroundColor=sxqtools.toRGB(data[0],data[1],data[2]);
     // console.log(selectedtarget.style.backgroundColor);
     //console.log(sxqtools.toRGB(data[0],data[1],data[2]));
@@ -264,8 +264,9 @@ colors.ondblclick=function(e)
             if(selectedtarget){
                 selectedtarget.style.borderColor="#000";
             }
-            radius=0.5;
-            touchbar.style.left=Math.round(radius*190)+"px";
+            //radius=0.5;
+            //touchbar.style.left=Math.round(radius*190)+"px";
+            mybar.setBarPosition(0.5);
             selectedtarget=eventtarget;
             eventtarget.style.borderColor="#ff0";
             var colorboard=document.getElementById("pickerdiv");
@@ -297,7 +298,7 @@ colors.onclick=function(e)
     switch(eventtarget)
     {
         case e.currentTarget:
-            console.log("board");
+            //console.log("board");
             break;
         default:
              if(selectedtarget){
@@ -305,32 +306,38 @@ colors.onclick=function(e)
             }
             selectedtarget=eventtarget;
             sxqtools.currentColor=selectedtarget;
-            console.log("currentColor:"+sxqtools.currentColor.style.backgroundColor);
+            //console.log("currentColor:"+sxqtools.currentColor.style.backgroundColor);
             eventtarget.style.borderColor="#ff0";
             var colorboard=document.getElementById("pickerdiv");
             break;
     }
 }
 //----------------picker touchbar---------------
-var touch_base=document.getElementById("touchbar_container");
-var touchbar=document.getElementById("touchbar_bar");
-touchbar.style.left=Math.round(radius*190)+"px";
+ var touch_base=document.getElementById("touchbar_container");
+ var touchbar=document.getElementById("touchbar_bar");
 
-touchbar.onmousedown=function(e1){
-    var x_start=e1.offsetX;
-    touchbar.onmousemove=function(e2){
-        var x=e2.offsetX-x_start;
-        touchbar.style.left=touchbar.offsetLeft+x+"px"
-        touchbar.offsetLeft<0? touchbar.style.left="0px":null;
-        touchbar.offsetLeft>190? touchbar.style.left="190px":null;
-        radius=touchbar.offsetLeft/190;
-        sxqtools.setColor(pickerr,pickerg,pickerb,radius);
-      //  console.log(touchbar.offsetLeft/190);
-    }
-}
-touchbar.onmouseup=function(){
-    touchbar.onmousemove=null;
-}
+ var mybar=createTouchBar(touch_base,touchbar);
+ mybar.setBarChangeCallback(function(){
+     sxqtools.setColor(pickerr,pickerg,pickerb,mybar.radius);
+     console.log(this);
+ });
+
+// touchbar.style.left=Math.round(radius*190)+"px";
+// touchbar.onmousedown=function(e1){
+//     var x_start=e1.offsetX;
+//     touchbar.onmousemove=function(e2){
+//         var x=e2.offsetX-x_start;
+//         touchbar.style.left=touchbar.offsetLeft+x+"px"
+//         touchbar.offsetLeft<0? touchbar.style.left="0px":null;
+//         touchbar.offsetLeft>190? touchbar.style.left="190px":null;
+//         radius=touchbar.offsetLeft/190;
+//         sxqtools.setColor(pickerr,pickerg,pickerb,radius);
+//       //  console.log(touchbar.offsetLeft/190);
+//     }
+// }
+// touchbar.onmouseup=function(){
+//     touchbar.onmousemove=null;
+// }
 
 
 //console.log(touchbar);
