@@ -5,6 +5,8 @@ function createTouchBar(baseline,bar)// 好好看看红书的继承知识（各
     touchbar.baseline=baseline;
     touchbar.bar=bar;
     touchbar.radius=0.5;
+    touchbar.baseline.style.position="relative";
+    touchbar.bar.style.position="absolute";
     var barChangeCallback=function(){};
     console.log("create bar "+ touchbar.radius);
     var basestyle=

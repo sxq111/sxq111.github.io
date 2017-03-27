@@ -107,8 +107,8 @@ body{
     width: 65px;
 }
 #touchbar_container{
-    position: relative;
-    width: 200px;
+    /*position: relative;*/
+    width: 300px;
     height: 10px;
     border: 1px solid cadetblue;
     /*position:  relative;*/
@@ -120,13 +120,13 @@ body{
     background: linear-gradient(to right, black , white); /* 标准的语法（必须放在最后） */
 }
 #touchbar_container #touchbar_bar{
-    width: 10px;
+    width: 20px;
     height: 8px;
     border: 1px solid yellowgreen;
     background-color: yellow;
     cursor: pointer;
     margin: 0 auto;
-    position: absolute;
+    /*position: absolute;*/
     left: 95px;
 
 }
