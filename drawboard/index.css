@@ -42,6 +42,44 @@ body{
  margin: 138px auto;
  
 }
+#brush #brushtools #brushsize_baseline{
+    height: 4px;
+    background-color:sandybrown;
+    width: 300px;
+    margin-top: 20px;
+    margin-left:auto;
+    margin-right: auto;
+    position: relative;
+}
+#brush #brushtools #brushsize_baseline #burshsize_bar{
+    background-color:darkblue;
+    border: 1px solid orangered;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top:-8px;
+    border-radius:10px; 
+    cursor: pointer;
+}
+#burshsize_bar #brushsize_alert{
+    width: 2px;
+    height: 2px;
+    border-radius: 200px;
+    background-color: white;
+    border: 1px solid black;
+    margin: 22px auto;
+    opacity: 0.67;
+    display: none;
+
+}
+/*#brush #brushtools #brushsize_baseline #burshsize_bar:hover::after{
+    content: "";
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-color: black;
+
+}*/
 #canvas{
     margin: 0 0;
    width: 400px;
@@ -51,12 +89,13 @@ body{
 }
 #colors{
     z-index: 5;
-    height: 300px;
-    width: 50px;
+    height: auto;
+    width: 34px;
     overflow:hidden;
-    border:15px solid lightslategray; 
+    border:20px solid lightslategray; 
     position: fixed;
     cursor: move;
+    border-radius: 10px;
     background-color: lightslategray;
     /*left: 10px;
     top: 10px;*/
@@ -70,9 +109,10 @@ body{
 #colors .colorpicker{
     display: block;
     border: 2px solid black;
-    margin: 0 auto;
-    width: 30px;
-    height: 21px;
+    margin: 2px auto;
+    width: 26px;
+    height: 26px;
+    border-radius: 15px;
     cursor: pointer;
     background-color: rgb(128, 128, 128);
 }
@@ -118,11 +158,14 @@ body{
     background: -o-linear-gradient(right, black, white); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(right, black, white); /* Firefox 3.6 - 15 */
     background: linear-gradient(to right, black , white); /* 标准的语法（必须放在最后） */
+    margin-bottom: 10px;
 }
 #touchbar_container #touchbar_bar{
     width: 20px;
-    height: 8px;
-    border: 1px solid yellowgreen;
+    height: 20px;
+    top: -9px;
+    border-radius:14px; 
+    border: 4px solid yellowgreen;
     background-color: yellow;
     cursor: pointer;
     margin: 0 auto;

@@ -32,7 +32,8 @@ var sxqtools={
         }
         console.log(radius);
     //console.log(selectedtarget.style.backgroundColor);
-    }
+    },
+    currentContext:null
 
 };
 
@@ -76,6 +77,11 @@ function main()
    console.log(sxqtools.hasOwnProperty("toRGB"));
     var canvas=document.getElementById("canvas");
     var context=canvas.getContext("2d");
+
+    sxqtools.currentContext=context;
+    sxqtools.currentContext.lineWidth=2;
+    sxqtools.currentContext.lineCap="round";
+
     // context.moveTo(0,0);
     // context.lineTo(200,200);
     // context.stroke();
@@ -322,25 +328,30 @@ colors.onclick=function(e)
      console.log(this);
  });
 
-// touchbar.style.left=Math.round(radius*190)+"px";
-// touchbar.onmousedown=function(e1){
-//     var x_start=e1.offsetX;
-//     touchbar.onmousemove=function(e2){
-//         var x=e2.offsetX-x_start;
-//         touchbar.style.left=touchbar.offsetLeft+x+"px"
-//         touchbar.offsetLeft<0? touchbar.style.left="0px":null;
-//         touchbar.offsetLeft>190? touchbar.style.left="190px":null;
-//         radius=touchbar.offsetLeft/190;
-//         sxqtools.setColor(pickerr,pickerg,pickerb,radius);
-//       //  console.log(touchbar.offsetLeft/190);
-//     }
-// }
-// touchbar.onmouseup=function(){
-//     touchbar.onmousemove=null;
-// }
+//-----------------brush size---------------
+ var brushsize_base=document.getElementById("brushsize_baseline");
+ var brushsizebar=document.getElementById("burshsize_bar");
+ var brushsizealert=document.getElementById("brushsize_alert");
+ var brushsize=createTouchBar(brushsize_base,brushsizebar);
+ brushsize.setBarPosition(0);
+ brushsize.setBarChangeCallback(function(){
+     brushsizealert.style.width=Math.round(brushsize.radius*60)+2+"px";
+     brushsizealert.style.height=brushsizealert.style.width;
+     sxqtools.currentContext.lineWidth=Number.parseInt(brushsizealert.style.height);
+     brushsizealert.style.marginLeft=9 -Math.round(Number.parseInt(brushsizealert.style.width)/2)+"px";
+     //brushsizealert.style.borderRadius
+     console.log(brushsizealert.style.width);
+ });
+brushsizebar.addEventListener("mouseover",function(){
+    brushsizealert.style.display="block";
+},false);
+brushsizebar.addEventListener("mouseout",function(){
+    brushsizealert.style.display="none";
+},false);
 
 
-//console.log(touchbar);
+
+
 //-------------draw methods--------------
     var currentpath=new Path2D();
     var pathlist=[];
@@ -354,13 +365,13 @@ colors.onclick=function(e)
             context.strokeStyle="#888";
         }
         
-        context.lineWidth=3;
+        //context.lineWidth=3;
         currentpath.moveTo(e.offsetX,e.offsetY);
         path.moveTo(e.offsetX,e.offsetY);
         e.target.onmousemove=function(e2)
         {
             //context.fillStyle="#000";
-             context.lineCap="round";//---很重要，如果是默认值会导致意想不到结果---
+             //context.lineCap="round";//---很重要，如果是默认值会导致意想不到结果---
              currentpath.lineTo(e2.offsetX,e2.offsetY);
              //currentpath.arc(e2.offsetX,e2.offsetY,1,0,2*Math.PI,false);
              context.stroke(currentpath);
