@@ -13,11 +13,13 @@ body{
     height: 1px;
     margin: 0 auto;
     position: relative;
-    /*border: 1px solid black;    */
+    /*border: 1px solid black;  */
 }
 #brush #brushtools{
+    padding-top: 15px;
     width: 450px;
     height: 160px;
+    border-radius: 20px;
     border: 1px solid red; 
     background-color: gray;  
     position: absolute;
@@ -32,6 +34,23 @@ body{
   top:0px;
   transition: 0.5s;
 }
+.brushtools_line{
+    width: 430px;
+    height: 20px;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+.brushtools_line #brushsize_text{
+    /*line-height: 20px;*/
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    width: 80px;
+    height: 20px;
+    border: 1px solid saddlebrown;
+    display: inline-block;
+    overflow: hidden;
+}
+
 #brush #brushtools p{
     font-family:Arial, Helvetica, sans-serif;
     font-size: 15pt; 
@@ -43,22 +62,23 @@ body{
  
 }
 #brush #brushtools #brushsize_baseline{
-    height: 4px;
+    height: 6px;
     background-color:sandybrown;
-    width: 300px;
-    margin-top: 20px;
-    margin-left:auto;
-    margin-right: auto;
+    width: 340px;
+    border-radius: 3px;
+    display:inline-block; 
     position: relative;
+   top:-9px;
+    /*top:-10px;*/
 }
 #brush #brushtools #brushsize_baseline #burshsize_bar{
     background-color:darkblue;
-    border: 1px solid orangered;
+    border: 3px solid orangered;
     width: 18px;
     height: 18px;
     position: absolute;
     top:-8px;
-    border-radius:10px; 
+    border-radius:20px; 
     cursor: pointer;
 }
 #burshsize_bar #brushsize_alert{
@@ -67,7 +87,7 @@ body{
     border-radius: 200px;
     background-color: white;
     border: 1px solid black;
-    margin: 22px auto;
+    margin: 27px auto;
     opacity: 0.67;
     display: none;
 
@@ -150,6 +170,7 @@ body{
     /*position: relative;*/
     width: 300px;
     height: 10px;
+    border-radius: 5px;
     border: 1px solid cadetblue;
     /*position:  relative;*/
     margin-left: auto;
