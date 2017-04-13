@@ -321,8 +321,7 @@ colors.onclick=function(e)
 //----------------picker touchbar---------------
  var touch_base=document.getElementById("touchbar_container");
  var touchbar=document.getElementById("touchbar_bar");
-
- var mybar=createTouchBar(touch_base,touchbar);
+ var mybar=sxqui.createTouchBar(touch_base,touchbar);
  mybar.setBarChangeCallback(function(){
      sxqtools.setColor(pickerr,pickerg,pickerb,mybar.radius);
      console.log(this);
@@ -332,7 +331,7 @@ colors.onclick=function(e)
  var brushsize_base=document.getElementById("brushsize_baseline");
  var brushsizebar=document.getElementById("burshsize_bar");
  var brushsizealert=document.getElementById("brushsize_alert");
- var brushsize=createTouchBar(brushsize_base,brushsizebar);
+ var brushsize=sxqui.createTouchBar(brushsize_base,brushsizebar);
  brushsize.setBarPosition(0);
  brushsize.setBarChangeCallback(function(){
      brushsizealert.style.width=Math.round(brushsize.radius*60)+2+"px";

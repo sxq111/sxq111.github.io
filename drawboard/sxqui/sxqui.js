@@ -1,3 +1,7 @@
+var sxqui={
+    createTouchBar:createTouchBar
+}
+
 function createTouchBar(baseline,bar)// 好好看看红书的继承知识（各种继承）
 {
     //var sxqtools=undefined;
@@ -51,3 +55,4 @@ function createTouchBar(baseline,bar)// 好好看看红书的继承知识（各
     }
     return touchbar;
 }
+
