@@ -108,14 +108,15 @@ body{
    border: 1px solid red;
 }
 #colors{
+    user-select: none;
     z-index: 5;
     height: auto;
-    width: 34px;
-    overflow:hidden;
+    width: 170px;
+    /*overflow:hidden;*/
     border:20px solid lightslategray; 
     position: fixed;
     cursor: move;
-    border-radius: 10px;
+    border-radius: 13px;
     background-color: lightslategray;
     /*left: 10px;
     top: 10px;*/
@@ -127,9 +128,9 @@ body{
 }*/
 
 #colors .colorpicker{
-    display: block;
+    display: inline-block;
     border: 2px solid black;
-    margin: 2px auto;
+    margin: 0 ;
     width: 26px;
     height: 26px;
     border-radius: 15px;

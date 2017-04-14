@@ -82,14 +82,6 @@ function main()
     sxqtools.currentContext.lineWidth=2;
     sxqtools.currentContext.lineCap="round";
 
-    // context.moveTo(0,0);
-    // context.lineTo(200,200);
-    // context.stroke();
-    // canvas.addEventListener("click",function(event){
-    //     //alert("client :"+event.clientX+","+event.clientY);//client x,y相对于整个窗口
-    //     console.log("listener offset :"+event.offsetX+","+event.offsetY);//offset 相对于该元素
-    //     //alert("xy :"+event.x+","+event.y);//xy和clientxy一样
-    // },false);//同种事件在前定义先触发
 
 
 //-------------------tool buttons ------------------
@@ -201,10 +193,7 @@ var colorpickers=colors.getElementsByClassName('colorpicker');
 colors.ondblclick=function(e)
 {
     //事件委托
-    // var colorpickerarr=sxqtools.nodeListToArray(colorpickers);
-    // colorpickerarr.forEach(function(e){
-    //     e.style.borderColor="#000";
-    // });
+
     var eventtarget=e.target;
     switch(eventtarget)
     {
@@ -241,10 +230,7 @@ colors.ondblclick=function(e)
 colors.onclick=function(e)
 {
     //事件委托
-    // var colorpickerarr=sxqtools.nodeListToArray(colorpickers);
-    // colorpickerarr.forEach(function(e){
-    //     e.style.borderColor="#000";
-    // });
+
     var eventtarget=e.target;
     switch(eventtarget)
     {
@@ -292,7 +278,6 @@ brushsizebar.addEventListener("mouseover",function(){
 brushsizebar.addEventListener("mouseout",function(){
     brushsizealert.style.display="none";
 },false);
-
 
 
 
