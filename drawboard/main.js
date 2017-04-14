@@ -170,54 +170,18 @@ function main()
 //----------------colorpickers--------------
 //to do 尝试使用事件委托
 var pickercanvas=document.getElementById("pickercanvas");
-var pickercontext=pickercanvas.getContext("2d");
-var blockheight=pickercanvas.height/8;
-var blockwidth=pickercanvas.width/8;
-console.log(pickercanvas.width+','+pickercanvas.height);
-var x=0;
-var y=0;
-for(let r=0;r<4;r++)
-    for(let g=0;g<4;g++)
-        for(let b=0;b<4;b++)
-        {//绘制色块
-            pickercontext.fillStyle="rgb("+r*85+","+g*85+","+b*85+")"
-            pickercontext.fillRect(x*blockwidth,y*blockheight,blockwidth,blockheight);
-            pickercontext.strokeStyle="#000";
-            pickercontext.lineWidth=2;
-            pickercontext.strokeRect(x*blockwidth,y*blockheight,blockwidth,blockheight);
-            x++;
-            if(x>=8)
-            {
-                x=0;
-                y++;
-            }
-        }
-pickercanvas.onmousemove=function(e){
-    pickercontext.strokeStyle="#000";
-    for(let x=0;x<8;x++){
-        for(let y=0;y<8;y++)
-        {
-            //pickercontext.strokeStyle="#000";
-            pickercontext.strokeRect(x*blockwidth,y*blockheight,blockwidth,blockheight);
-        }
-    }
-   // pickercontext.lineWidth=2;
-    pickercontext.strokeStyle="#fff";
-    //console.log(e.offsetX+','+e.offsetY);
-    if(e.offsetX>0&&e.offsetX<pickercanvas.width&&e.offsetY>0&&e.offsetY<pickercanvas.height)
-    {
-        pickercontext.strokeRect(Math.floor(e.offsetX/blockwidth)*blockwidth,Math.floor(e.offsetY/blockheight)*blockheight,blockwidth,blockheight);
-    }
-}
-pickercanvas.onmouseout=function(){
-    pickercontext.strokeStyle="#000";
-    for(let x=0;x<8;x++){
-        for(let y=0;y<8;y++)
-        {
-            //pickercontext.strokeStyle="#000";
-            pickercontext.strokeRect(x*blockwidth,y*blockheight,blockwidth,blockheight);
-        }
-    }
+var mypickercanvas=sxqui.createColorPickerCanvas(pickercanvas);
+mypickercanvas.setColors(4);
+
+var  origionColor;
+var selectedtarget;
+//var radius=0.5;
+var pickerr=128,pickerg=128,pickerb=128;
+mypickercanvas.colorSelectCallback=function(){
+    pickerr=mypickercanvas.r;
+    pickerg=mypickercanvas.g;
+    pickerb=mypickercanvas.b;
+    sxqtools.setColor(mypickercanvas.r,mypickercanvas.g,mypickercanvas.b,mybar.radius);
 }
 
 var buttoncancle=document.getElementById("colorCancle");
@@ -232,27 +196,8 @@ buttonok.onclick=function(){
     var colorboard=document.getElementById("pickerdiv");
     colorboard.style.display="none";
 }
-
-var  origionColor;
-var selectedtarget;
-//var radius=0.5;
-var pickerr=128,pickerg=128,pickerb=128;
-pickercanvas.onclick=function(e)
-{
-    var x=Math.floor(e.offsetX/blockwidth);
-    var y=Math.floor(e.offsetY/blockheight);
-    var pixels=pickercontext.getImageData(x*blockwidth+5,y*blockheight+5,1,1);
-    var data=pixels.data;
-    pickerr=data[0];
-    pickerg=data[1];
-    pickerb=data[2];
-    sxqtools.setColor(data[0],data[1],data[2],mybar.radius);
-    // selectedtarget.style.backgroundColor=sxqtools.toRGB(data[0],data[1],data[2]);
-    // console.log(selectedtarget.style.backgroundColor);
-    //console.log(sxqtools.toRGB(data[0],data[1],data[2]));
-}
-//colors.style.background
 var colorpickers=colors.getElementsByClassName('colorpicker');
+
 colors.ondblclick=function(e)
 {
     //事件委托
