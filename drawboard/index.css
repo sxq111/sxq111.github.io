@@ -108,7 +108,13 @@ body{
    border: 1px solid red;
 }
 #colors{
-    user-select: none;
+        /*禁用内容被选中 ： */
+        -moz-user-select:none; /*火狐*/
+        -webkit-user-select:none; /*webkit浏览器*/
+        -ms-user-select:none; /*IE10*/
+        -khtml-user-select:none; /*早期浏览器*/
+        user-select:none;
+
     z-index: 5;
     height: auto;
     width: 170px;
@@ -176,6 +182,7 @@ body{
     /*position:  relative;*/
     margin-left: auto;
     margin-right: auto;
+    /*渐变背景*/
     background: -webkit-linear-gradient(left, black , white); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(right, black, white); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(right, black, white); /* Firefox 3.6 - 15 */

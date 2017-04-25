@@ -163,8 +163,8 @@ function main()
 //to do 尝试使用事件委托
 var pickercanvas=document.getElementById("pickercanvas");
 var mypickercanvas=sxqui.createColorPickerCanvas(pickercanvas);
-mypickercanvas.setColors(4);
-
+mypickercanvas.setColors(10);
+mypickercanvas.setSize(1);
 var  origionColor;
 var selectedtarget;
 //var radius=0.5;

@@ -7,8 +7,9 @@ function createColorPickerCanvas(canvas)
     
     var picker={r:null,g:null,b:null};
     var maxX;
-
-
+    var maxY;
+    var radius=1;
+    var nowlen;
     // picker.getColor=function()
     // {
     //     if(!selectR)    
@@ -17,24 +18,59 @@ function createColorPickerCanvas(canvas)
     // }
 
     picker.colorSelectCallback=function(){};
-
+    picker.setSize=function(size)
+    {
+        if(size>0 && size <=1)
+            radius=size;
+        if(nowlen)
+            picker.setColors(nowlen);
+    }
     picker.setColors=function(length)
     {
         length=Math.max(3,length);
-        length=Math.min(length,8);
+        length=Math.min(length,11);
+        nowlen=length;
         var context=canvas.getContext("2d");
         //var maxcount=length*length;
         //var step=Math.round(16*16*16/maxcount);
         //console.log(step);
-        var blocksize=20;
-        if(length<=4)
-            blocksize=25;
-        if(length<=3)
-            blocksize=40;
-        var numbs= Math.floor(Math.sqrt(length*length*length));
-        maxX=numbs;
-        canvas.width=blocksize*numbs;
-        canvas.height=blocksize*numbs;
+        var blocksize=15;
+   
+        switch(length){
+            case 4:
+            case 3:
+                blocksize=30;
+                break;
+            case 5:
+                blocksize=20;
+                break;
+            case 6:
+                blocksize=18;
+                break;
+            case 8:
+            case 7:
+                blocksize=15;
+                break;
+            case 10:
+            case 9:
+                blocksize=17;
+                break;
+            case 11:
+                blocksize =17;
+                break;
+            
+        }
+        blocksize=Math.round(blocksize*radius);
+        blocksize=Math.max(10,blocksize);
+        //var numbs= Math.floor(Math.sqrt(length*length*length));
+        maxX=2*length;
+        if(length<=8&&length>4)
+            maxX=3*length;
+        if(length>8)
+            maxX=4*length;
+        maxY=Math.ceil(length*length*length/maxX);
+        canvas.width=blocksize*maxX;
+        canvas.height=blocksize*maxY;
         canvas.style.width=canvas.width+"px";
         canvas.style.height=canvas.height+"px";
         var x=0;
@@ -46,16 +82,16 @@ function createColorPickerCanvas(canvas)
             {
                 for(var b=0;b<length;b++)
                 {
-                    if(y>=numbs)
+                    if(y>=maxY)
                         break;
                     var temp=Math.floor(255/(length-1));
                     context.fillStyle="rgb("+r*temp+","+g*temp+","+b*temp+")";
                     context.fillRect(x*blocksize,y*blocksize,blocksize,blocksize);
                     context.strokeStyle="#000";
-                    context.lineWidth=2;
+                    context.lineWidth=1.5;
                     context.strokeRect(x*blocksize,y*blocksize,blocksize,blocksize);
                     x++;
-                    if(x>=numbs)
+                    if(x>=maxX)
                      {
                           x=0;
                           y++;
@@ -64,12 +100,21 @@ function createColorPickerCanvas(canvas)
                     }
                 }
             }
+            for(;x<maxX;x++)
+            {
+                    context.fillStyle="#fff";
+                    context.fillRect(x*blocksize,y*blocksize,blocksize,blocksize);
+                    context.strokeStyle="#000";
+                    context.lineWidth=1.5;
+                    context.strokeRect(x*blocksize,y*blocksize,blocksize,blocksize);
+            }    
+
         canvas.onmouseout=function(){
             context.strokeStyle="#000";
-            context.lineWidth=2;
-            for(let x=0;x<numbs;x++)
+            context.lineWidth=1.5;
+            for(let x=0;x<maxX;x++)
             {
-                for(let y=0;y<numbs;y++)
+                for(let y=0;y<maxY;y++)
                 {
                     context.strokeRect(x*blocksize,y*blocksize,blocksize,blocksize);
                 }
@@ -78,10 +123,10 @@ function createColorPickerCanvas(canvas)
         canvas.onmousemove=function(e)
         {
             context.strokeStyle="#000";
-            context.lineWidth=2;
-            for(let x=0;x<numbs;x++)
+            context.lineWidth=1.5;
+            for(let x=0;x<maxX;x++)
             {
-                for(let y=0;y<numbs;y++)
+                for(let y=0;y<maxY;y++)
                 {
                     context.strokeRect(x*blocksize,y*blocksize,blocksize,blocksize);
                 }
