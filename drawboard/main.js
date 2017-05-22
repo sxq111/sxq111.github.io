@@ -33,51 +33,18 @@ var sxqtools={
         console.log(radius);
     //console.log(selectedtarget.style.backgroundColor);
     },
-    currentContext:null
-
+    currentContext:null,
 };
+
+
 
 function main()
 {
-    // var temp={name:"temp",
-    //     fun:function(){
-    //         console.log(this);
-    //     }    
-    // };
-    // temp.fun();
-    // setTimeout(temp.fun,1000);
-    // function foo(){
-    //     var i=111;
-    //     return {val:i,
-    //             see: function(){
-    //                 console.log(i);
-    //             }
-    //             };
-    // }
-    // var temp=foo();
-    // temp.val=222; 单纯的对象不能形成闭包，原因是对象的属性是值传递，只有函数才形成闭包
-    // temp.see();
-    // console.log(temp.val);
-    // for(var i=0;i<5;i++)
-    // {
-    //     setTimeout((function(temp){
-    //         return function(){
-    //             console.log(temp);
-    //         };
-    //     })(i),1000*i);
-    // }闭包和循环测试
-   // console.log(sxqtools.indexOf);
-//    for(let i=0;i<5;i++)
-//    {
-//        setTimeout(function () {
-//            console.log(i);
-//        },1000*i);
-//    }
-    
    console.log(sxqtools.hasOwnProperty("toRGB"));
     var canvas=document.getElementById("canvas");
     var context=canvas.getContext("2d");
-
+    context.fillStyle="#fff";
+    context.fillRect(0,0,canvas.width,canvas.height);
     sxqtools.currentContext=context;
     sxqtools.currentContext.lineWidth=2;
     sxqtools.currentContext.lineCap="round";
@@ -85,39 +52,35 @@ function main()
 
 
 //-------------------tool buttons ------------------
+    var image =new Image();
+    image.src=canvas.toDataURL();
+        editor.reset(image);
+        console.log(editor)
+    
     var btn1=document.getElementById("btn1");
     btn1.onclick=function(){
-        context.fillStyle="#fff"
-        context.fillRect(0,0,canvas.width,canvas.height);
-        context.strokeStyle="#000"
-        context.lineCap="round";
-        context.lineWidth=10;
-        pathlist.forEach(function(e){
-            context.stroke(e);
-        });
+        //undo
+        editor.undo();
+        console.log(editor);
+        context.drawImage(editor.get(),0,0);
+        
     };
     var btn2=document.getElementById("btn2");
-    var image=new Image();
     btn2.onclick=function(){
-        context.fillStyle="rgba(128,128,128,0.1)"
-        context.fillRect(0,0,canvas.width,canvas.height);
-        context.fillStyle="rgb(0,0,0)";
-        context.fillRect(0,0,canvas.width/2,canvas.height/2);
-        image.src=canvas.toDataURL();
-        //console.log();
+        editor.redo();
+        context.drawImage(editor.get(),0,0);
     };
 
     var btn3=document.getElementById("btn3");
-    var imgdata;
+
     btn3.onclick=function()
     {
-        imgdata= context.getImageData(0,0,canvas.width,canvas.height);
+        
     }
 
     var btn4=document.getElementById("btn4");
     btn4.onclick=function()
     {
-        //context.putImageData(imgdata,0,0);
         context.drawImage(image,0,0);
     }
     //-------colors  drag----------
@@ -309,7 +272,7 @@ brushsizebar.addEventListener("mouseout",function(){
              path.moveTo(e2.offsetX,e2.offsetY);///---很重要，这样保证与currentpath绘制方式一致
              currentpath=new Path2D();
              currentpath.moveTo(e2.offsetX,e2.offsetY);
-             console.log(" offset :"+e2.offsetX+","+e2.offsetY);
+          //  console.log(" offset :"+e2.offsetX+","+e2.offsetY);
         }
         console.log("down");
     }
@@ -320,6 +283,11 @@ brushsizebar.addEventListener("mouseout",function(){
         var oldpath=path;
         path=new Path2D();
         pathlist.push(oldpath);
+
+        var img=new Image();
+        img.src=canvas.toDataURL();
+        editor.add(img);
+
         e.target.onmousemove=null;
         console.log("up");
     }
