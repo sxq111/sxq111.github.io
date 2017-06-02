@@ -242,8 +242,14 @@ brushsizebar.addEventListener("mouseover",function(){
 brushsizebar.addEventListener("mouseout",function(){
     brushsizealert.style.display="none";
 },false);
-
-
+// --------------------brush type----------------------------
+var brushList=document.getElementsByClassName("brushtypebtn");
+brushList[0].addEventListener("click",function(e){
+    brush.setNormalBrush(canvas);
+},false)
+brushList[1].addEventListener("click",function(e){
+    brush.setDotBrush(canvas);
+},false)
 
 //-------------draw methods--------------
 

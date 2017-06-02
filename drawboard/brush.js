@@ -45,7 +45,6 @@ function setDotBrush(canvas){
     canvas.onmousedown=function(e)
     {
         context.lineWidth=0.5;
-        context.strokeStyle="#000";
         var radius=Math.round(Math.max(brush.size,10));
         e.target.onmousemove=function(e2)
         {

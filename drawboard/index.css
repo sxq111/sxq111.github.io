@@ -18,15 +18,15 @@ body{
 #brush #brushtools{
     padding-top: 15px;
     width: 450px;
-    height: 160px;
+    height: 80px;
     border-radius: 20px;
-    border: 1px solid red; 
-    background-color: gray;  
+    border: 0px solid red; 
+    background-color:grey;  
     position: absolute;
    
 }
 #brush #brushtools{
-    top:-140px;
+    top:-70px;
    transition: 0.5s;
    
 }
@@ -37,20 +37,32 @@ body{
 .brushtools_line{
     width: 430px;
     height: 20px;
-    margin: 0 auto;
-    border: 1px solid black;
+    margin: 10px auto;
+    /*border: 1px solid black;*/
 }
 .brushtools_line #brushsize_text{
     /*line-height: 20px;*/
     font-family:Arial, Helvetica, sans-serif;
     font-size: 12pt;
-    width: 80px;
+    width: 85px;
+
     height: 20px;
-    border: 1px solid saddlebrown;
+    /*border: 1px solid saddlebrown;*/
     display: inline-block;
     overflow: hidden;
 }
-
+.brushtools_line .brushtypebtn{
+    width: 60px;
+    height: 18px;
+    margin-top: -5px;
+    border: 1px solid rebeccapurple;
+    display: inline-block;
+    text-align: center;
+    background-color: cadetblue;
+}
+.brushtools_line .brushtypebtn:active{
+    background-color: aliceblue;
+}
 #brush #brushtools p{
     font-family:Arial, Helvetica, sans-serif;
     font-size: 15pt; 
