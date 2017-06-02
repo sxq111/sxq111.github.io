@@ -126,7 +126,7 @@ function main()
 //to do 尝试使用事件委托
 var pickercanvas=document.getElementById("pickercanvas");
 var mypickercanvas=sxqui.createColorPickerCanvas(pickercanvas);
-mypickercanvas.setColors(10);
+mypickercanvas.setColors(4);
 mypickercanvas.setSize(1);
 var  origionColor;
 var selectedtarget;
@@ -230,7 +230,8 @@ colors.onclick=function(e)
  brushsize.setBarChangeCallback(function(){
      brushsizealert.style.width=Math.round(brushsize.radius*60)+2+"px";
      brushsizealert.style.height=brushsizealert.style.width;
-     sxqtools.currentContext.lineWidth=Number.parseInt(brushsizealert.style.height);
+     //sxqtools.currentContext.lineWidth=Number.parseInt(brushsizealert.style.height);
+     brush.setLineSize(Number.parseInt(brushsizealert.style.height));
      brushsizealert.style.marginLeft=9 -Math.round(Number.parseInt(brushsizealert.style.width)/2)+"px";
      //brushsizealert.style.borderRadius
      console.log(brushsizealert.style.width);
@@ -245,51 +246,21 @@ brushsizebar.addEventListener("mouseout",function(){
 
 
 //-------------draw methods--------------
-    var currentpath=new Path2D();
-    var pathlist=[];
-    var path=new Path2D();
-    canvas.onmousedown=function(e)
-    {
-        if(sxqtools.currentColor &&sxqtools.currentColor.style.backgroundColor)
+
+brush.setDotBrush(canvas);
+canvas.addEventListener("mousedown",function(){
+    if(sxqtools.currentColor &&sxqtools.currentColor.style.backgroundColor)
         {
             context.strokeStyle=sxqtools.currentColor.style.backgroundColor;
         }else{
             context.strokeStyle="#888";
         }
-        
-        //context.lineWidth=3;
-        currentpath.moveTo(e.offsetX,e.offsetY);
-        path.moveTo(e.offsetX,e.offsetY);
-        e.target.onmousemove=function(e2)
-        {
-            //context.fillStyle="#000";
-             //context.lineCap="round";//---很重要，如果是默认值会导致意想不到结果---
-             currentpath.lineTo(e2.offsetX,e2.offsetY);
-             //currentpath.arc(e2.offsetX,e2.offsetY,1,0,2*Math.PI,false);
-             context.stroke(currentpath);
-             //context.fill(currentpath);
-             path.lineTo(e2.offsetX,e2.offsetY);
-             path.moveTo(e2.offsetX,e2.offsetY);///---很重要，这样保证与currentpath绘制方式一致
-             currentpath=new Path2D();
-             currentpath.moveTo(e2.offsetX,e2.offsetY);
-          //  console.log(" offset :"+e2.offsetX+","+e2.offsetY);
-        }
-        console.log("down");
-    }
-    
-    canvas.onmouseup=function(e){
-        
-        //context.stroke(currentpath);
-        var oldpath=path;
-        path=new Path2D();
-        pathlist.push(oldpath);
-
+},false);
+canvas.addEventListener("mouseup",function(){
         var img=new Image();
         img.src=canvas.toDataURL();
         editor.add(img);
+},false);
 
-        e.target.onmousemove=null;
-        console.log("up");
-    }
   
 }

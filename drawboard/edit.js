@@ -14,6 +14,7 @@ function reset(image){
     editor.picArr=[];
     editor.currentIndex=null;
     editor.add(image);
+    console.log(this);
 }
 function add(image){
     if(editor.currentIndex!=null&&editor.currentIndex!=editor.picArr.length-1)
@@ -47,6 +48,5 @@ function redo(){
 }
 function getImage()
 {
-
     return editor.picArr[editor.currentIndex];
 }
