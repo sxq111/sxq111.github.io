@@ -85,43 +85,9 @@ function main()
     }
     //-------colors  drag----------
     var colors=document.getElementById("colors");
-    colors.onmousedown=function(e){
-        console.log("c:"+colors.clientLeft);// 等于左边框宽度
-        console.log("o:"+colors.offsetLeft);//等于距离包含框的距离
-        console.log("s:"+colors.scrollLeft);
-        //console.log("l:"+colors.left);
-        var extraX=e.clientX-colors.offsetLeft//
-        var extraY=e.clientY-colors.offsetTop//用offset属性读，用style.top设置是最优的
-        if(e.target==colors){
-            colors.onmousemove=function(e2){
-                colors.style.top=e2.clientY-extraY+"px";
-                colors.style.left=e2.clientX-extraX+"px";
-                if(colors.offsetLeft<0)
-                {
-                    colors.style.left=0+"px";
-                    //return;
-                }
-                if(colors.offsetTop<0)
-                {
-                    colors.style.top=0+"px";
-                    //return;
-                }
-                if(colors.offsetLeft>document.body.clientWidth-colors.offsetWidth)
-                {
-                    colors.style.left=document.body.clientWidth-colors.offsetWidth+"px";
-                }
-                if(colors.offsetTop>document.body.clientHeight-colors.offsetHeight)
-                {
-                    colors.style.top=document.body.clientHeight-colors.offsetHeight+"px";
-                }
-                
-                //console.log("now x:"+colors.style.left);
-            }
-        }
-    }
-    colors.onmouseup=function(){
-        colors.onmousemove=null;
-    }
+    sxqui.createDragable(colors);
+    var mybrush=document.getElementById("brushtools");
+    sxqui.createDragable(mybrush);
 //----------------colorpickers--------------
 //to do 尝试使用事件委托
 var pickercanvas=document.getElementById("pickercanvas");
@@ -137,6 +103,7 @@ mypickercanvas.colorSelectCallback=function(){
     pickerg=mypickercanvas.g;
     pickerb=mypickercanvas.b;
     sxqtools.setColor(mypickercanvas.r,mypickercanvas.g,mypickercanvas.b,mybar.radius);
+    touchbar.style.backgroundColor=sxqtools.currentColor.style.backgroundColor;
 }
 
 var buttoncancle=document.getElementById("colorCancle");
@@ -184,6 +151,7 @@ colors.ondblclick=function(e)
             }
            // console.log(reg.exec(getComputedStyle(eventtarget,null).backgroundColor));
             origionColor=getComputedStyle(eventtarget,null).backgroundColor;
+            touchbar.style.backgroundColor=origionColor;
             //console.log("origionColor: "+origionColor);
             //console.log("picker");
             break;
@@ -219,6 +187,7 @@ colors.onclick=function(e)
  mybar.setBarChangeCallback(function(){
      sxqtools.setColor(pickerr,pickerg,pickerb,mybar.radius);
      console.log(this);
+     touchbar.style.backgroundColor=sxqtools.currentColor.style.backgroundColor;
  });
 
 //-----------------brush size---------------
@@ -250,7 +219,15 @@ brushList[0].addEventListener("click",function(e){
 brushList[1].addEventListener("click",function(e){
     brush.setDotBrush(canvas);
 },false)
-
+brushList[2].addEventListener("click",function(e){
+    brush.setLineBrush(canvas);
+},false);
+brushList[3].addEventListener("click",function(e){
+    brush.setRectBrush(canvas);
+},false);
+brushList[4].addEventListener("click",function(e){
+    brush.setRoundBrush(canvas);
+},false);
 //-------------draw methods--------------
 
 brush.setDotBrush(canvas);
@@ -258,8 +235,10 @@ canvas.addEventListener("mousedown",function(){
     if(sxqtools.currentColor &&sxqtools.currentColor.style.backgroundColor)
         {
             context.strokeStyle=sxqtools.currentColor.style.backgroundColor;
+            context.fillStyle=context.strokeStyle;
         }else{
             context.strokeStyle="#888";
+             context.fillStyle=context.strokeStyle;
         }
 },false);
 canvas.addEventListener("mouseup",function(){
@@ -267,6 +246,11 @@ canvas.addEventListener("mouseup",function(){
         img.src=canvas.toDataURL();
         editor.add(img);
 },false);
-
-  
 }
+
+
+
+// $(document).ready(function () {
+//     var container = $('.brush-wrapper');
+//     var btns = container.find('.brushtypebtn');
+// });

@@ -1,7 +1,7 @@
 
 var editor={
     picArr:[],
-    arrMaxSzie:30,
+    arrMaxSzie:300,
     currentIndex:null,
     add:add,
     undo:undo,

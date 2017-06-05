@@ -4,7 +4,10 @@ var brush={
     setColor:setColor,
     setLineSize:setSize,
     setNormalBrush:setNormalBrush,
-    setDotBrush:setDotBrush
+    setDotBrush:setDotBrush,
+    setLineBrush:setLineBrush,
+    setRectBrush:setRectBrush,
+    setRoundBrush:setRoundBrush
 };
 
 function setSize(size)
@@ -57,7 +60,7 @@ function setDotBrush(canvas){
                     y=-y;
                 }
                 context.beginPath();
-                context.arc(e2.offsetX+x,e2.offsetY+y,0.5,0,2*Math.PI);
+                context.arc(e2.offsetX+x,e2.offsetY+y,0.1,0,2*Math.PI,true);
                 context.stroke();
             }
         }
@@ -65,5 +68,83 @@ function setDotBrush(canvas){
     }
     canvas.onmouseup=function(e){
         e.target.onmousemove=null;
+    }
+}
+function setLineBrush(canvas)
+{
+    var context=canvas.getContext("2d");
+    context.lineCap="round";
+    canvas.onmousedown=function(e)
+    {
+        var tempimg=new Image();
+        tempimg.src=canvas.toDataURL();
+        var oldx=e.offsetX;
+        var oldy=e.offsetY;
+        context.lineCap="round";
+        context.lineWidth=brush.size;
+        canvas.onmousemove=function(e2)
+        {
+            context.drawImage(tempimg,0,0);
+            context.beginPath();
+            context.moveTo(oldx,oldy);
+            context.lineTo(e2.offsetX,e2.offsetY);
+            context.stroke();
+        }
+    }
+    canvas.onmouseup=function(){
+        canvas.onmousemove=null;
+    }
+}
+function setRectBrush(canvas)
+{
+    var context=canvas.getContext("2d");
+    context.lineCap="round";
+    canvas.onmousedown=function(e)
+    {
+        var tempimg=new Image();
+        tempimg.src=canvas.toDataURL();
+        var oldx=e.offsetX;
+        var oldy=e.offsetY;
+        context.lineCap="round";
+        context.lineWidth=brush.size;
+        canvas.onmousemove=function(e2)
+        {
+            context.drawImage(tempimg,0,0);
+            context.beginPath();
+            context.strokeRect(oldx,oldy,e2.offsetX-oldx,e2.offsetY-oldy);
+            context.stroke();
+        }
+    }
+    canvas.onmouseup=function(){
+        canvas.onmousemove=null;
+    }
+}
+function setRoundBrush()
+{
+     var context=canvas.getContext("2d");
+    context.lineCap="round";
+    canvas.onmousedown=function(e)
+    {
+        var tempimg=new Image();
+        tempimg.src=canvas.toDataURL();
+        var oldx=e.offsetX;
+        var oldy=e.offsetY;
+        context.lineCap="round";
+        context.lineWidth=brush.size;
+        canvas.onmousemove=function(e2)
+        {
+            var midx=(e2.offsetX+oldx)/2;
+            var midy=(e2.offsetY+oldy)/2;
+            context.drawImage(tempimg,0,0);
+            context.beginPath();
+            var r=(e2.offsetX-oldx)*(e2.offsetX-oldx) +(e2.offsetY-oldy)*(e2.offsetY-oldy);
+            r=Math.sqrt(r)/2;
+            context.arc(midx,midy,r,0,2*Math.PI,true);
+            //  context.fill();
+             context.stroke();
+        }
+    }
+    canvas.onmouseup=function(){
+        canvas.onmousemove=null;
     }
 }

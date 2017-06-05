@@ -1,6 +1,43 @@
 var sxqui={
     createTouchBar:createTouchBar,
-    createColorPickerCanvas:createColorPickerCanvas
+    createColorPickerCanvas:createColorPickerCanvas,
+    createDragable:createDrag
+}
+function createDrag(ele){
+    var dragele={};
+    ele.onmousedown=function(e){
+        var extraX=e.clientX-ele.offsetLeft//
+        var extraY=e.clientY-ele.offsetTop//用offset属性读，用style.top设置是最优的
+        if(e.target==ele){
+            ele.onmousemove=function(e2){
+                ele.style.top=e2.clientY-extraY+"px";
+                ele.style.left=e2.clientX-extraX+"px";
+                if(ele.offsetLeft<0)
+                {
+                    ele.style.left=0+"px";
+                }
+                if(ele.offsetTop<0)
+                {
+                    ele.style.top=0+"px";
+                }
+                if(ele.offsetLeft>document.body.clientWidth-ele.offsetWidth)
+                {
+                    ele.style.left=document.body.clientWidth-ele.offsetWidth+"px";
+                }
+                if(ele.offsetTop>document.body.clientHeight-ele.offsetHeight)
+                {
+                    ele.style.top=document.body.clientHeight-ele.offsetHeight+"px";
+                }
+            }
+        }
+    }
+    ele.onmouseout=function(){
+        ele.onmousemove=null;
+    }
+        ele.onmouseup=function(){
+        ele.onmousemove=null;
+    }
+
 }
 function createColorPickerCanvas(canvas)
 {
