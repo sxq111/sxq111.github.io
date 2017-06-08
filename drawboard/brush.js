@@ -7,9 +7,35 @@ var brush={
     setDotBrush:setDotBrush,
     setLineBrush:setLineBrush,
     setRectBrush:setRectBrush,
-    setRoundBrush:setRoundBrush
+    setRoundBrush:setRoundBrush,
+    setFillRectBrush:setFillRectBrush,
+    setFillRoundBrush:setFillRoundBrush,
+    setEraser:setEraser
 };
-
+function setEraser(canvas){
+    var context=canvas.getContext("2d");
+    context.lineCap="round";
+   // context.lineWidth=brush.size;
+    canvas.onmousedown=function(e)
+    {
+         context.lineWidth=brush.size;
+         context.strokeStyle="#fff";
+         context.beginPath();
+         console.log(brush.color);
+        context.moveTo(e.offsetX,e.offsetY);
+        e.target.onmousemove=function(e2)
+        {
+            console.log("move");
+            context.lineTo(e2.offsetX,e2.offsetY);
+            context.stroke();
+            context.moveTo(e2.offsetX,e2.offsetY);
+        }
+        console.log("down");
+    }
+    canvas.onmouseup=function(e){
+        e.target.onmousemove=null;
+    }
+}
 function setSize(size)
 {
     brush.size=size;
@@ -119,7 +145,7 @@ function setRectBrush(canvas)
         canvas.onmousemove=null;
     }
 }
-function setRoundBrush()
+function setRoundBrush(canvas)
 {
      var context=canvas.getContext("2d");
     context.lineCap="round";
@@ -142,6 +168,57 @@ function setRoundBrush()
             context.arc(midx,midy,r,0,2*Math.PI,true);
             //  context.fill();
              context.stroke();
+        }
+    }
+    canvas.onmouseup=function(){
+        canvas.onmousemove=null;
+    }
+}
+function setFillRectBrush(canvas){
+var context=canvas.getContext("2d");
+    context.lineCap="round";
+    canvas.onmousedown=function(e)
+    {
+        var tempimg=new Image();
+        tempimg.src=canvas.toDataURL();
+        var oldx=e.offsetX;
+        var oldy=e.offsetY;
+        context.lineCap="round";
+        context.lineWidth=brush.size;
+        canvas.onmousemove=function(e2)
+        {
+            context.drawImage(tempimg,0,0);
+            context.beginPath();
+            context.fillRect(oldx,oldy,e2.offsetX-oldx,e2.offsetY-oldy);
+            
+        }
+    }
+    canvas.onmouseup=function(){
+        canvas.onmousemove=null;
+    }
+}
+function setFillRoundBrush(canvas)
+{
+     var context=canvas.getContext("2d");
+    context.lineCap="round";
+    canvas.onmousedown=function(e)
+    {
+        var tempimg=new Image();
+        tempimg.src=canvas.toDataURL();
+        var oldx=e.offsetX;
+        var oldy=e.offsetY;
+        context.lineCap="round";
+        context.lineWidth=brush.size;
+        canvas.onmousemove=function(e2)
+        {
+            var midx=(e2.offsetX+oldx)/2;
+            var midy=(e2.offsetY+oldy)/2;
+            context.drawImage(tempimg,0,0);
+            context.beginPath();
+            var r=(e2.offsetX-oldx)*(e2.offsetX-oldx) +(e2.offsetY-oldy)*(e2.offsetY-oldy);
+            r=Math.sqrt(r)/2;
+            context.arc(midx,midy,r,0,2*Math.PI,true);
+              context.fill();
         }
     }
     canvas.onmouseup=function(){

@@ -75,13 +75,66 @@ function main()
 
     btn3.onclick=function()
     {
-        
+        download(canvas);
     }
 
+    ///-----------------------open-----------------
+// function doInput(id){
+//     var inputObj = document.createElement('input');
+//     inputObj.addEventListener('change',readFile,false);
+//     inputObj.type = 'file';
+//     inputObj.accept = 'image/*';
+//     inputObj.id = id;
+//     inputObj.click();
+//     console.log("clk");
+// }
+// function readFile(){
+//     var file = this.files[0];//获取input输入的图片
+//     if(!/image\/\w+/.test(file.type)){
+//         alert("请确保文件为图像类型");
+//         return false;
+//     }//判断是否图片，在移动端由于浏览器对调用file类型处理不同，虽然加了accept = 'image/*'，但是还要再次判断
+//     console.log("clk1");
+//     var reader = new FileReader();
+//     reader.readAsDataURL(file);//转化成base64数据类型
+//     console.log("clk2");
+//     reader.onload = function(e){
+//         console.log("file load");
+//             var theimg=new Image();
+//             theimg.src=this.result;
+//             theimg.onload=function()
+//             {
+//                 context.drawImage(theimg,0,0);
+//             }
+//         }
+//     }
     var btn4=document.getElementById("btn4");
+    var loadfile= document.getElementById("loadfile");
+    loadfile.addEventListener("change",function(){
+             var file = this.files[0];//获取input输入的图片
+             console.log(file);
+             var fname=file.name;
+             if(!/^(.+?)\.(jpeg|png|bmp)$/.test(fname.toLowerCase())){
+                alert('Not An Image(bmp,jpeg,png)');
+                return;
+             }
+              var reader = new FileReader();
+              reader.readAsDataURL(file);//转化成base64数据类型
+               reader.onload = function(e){
+                console.log("file load");
+                var theimg=new Image();
+                theimg.src=this.result;
+                theimg.onload=function()
+                {
+                    context.drawImage(theimg,0,0,canvas.width,canvas.height);
+                }
+        }
+        },false);
     btn4.onclick=function()
     {
-        context.drawImage(image,0,0);
+        //context.drawImage(image,0,0);
+       loadfile.click();
+
     }
     //-------colors  drag----------
     var colors=document.getElementById("colors");
@@ -228,6 +281,15 @@ brushList[3].addEventListener("click",function(e){
 brushList[4].addEventListener("click",function(e){
     brush.setRoundBrush(canvas);
 },false);
+brushList[5].addEventListener("click",function(e){
+    brush.setFillRectBrush(canvas);
+},false);
+brushList[6].addEventListener("click",function(e){
+    brush.setFillRoundBrush(canvas);
+},false);
+brushList[7].addEventListener("click",function(e){
+    brush.setEraser(canvas);
+},false);
 //-------------draw methods--------------
 
 brush.setDotBrush(canvas);
@@ -247,8 +309,6 @@ canvas.addEventListener("mouseup",function(){
         editor.add(img);
 },false);
 }
-
-
 
 // $(document).ready(function () {
 //     var container = $('.brush-wrapper');

@@ -8,8 +8,11 @@ body{
     padding: 3px;
     border: 1px solid black;
 }
+#loadfile{
+    display: none;
+}
 #brushtools{
-    
+    top:200px;
     cursor: move;
             /*禁用内容被选中 ： */
         -moz-user-select:none; /*火狐*/
@@ -18,8 +21,8 @@ body{
         -khtml-user-select:none; /*早期浏览器*/
         user-select:none;
     padding-top: 15px;
-    width: 450px;
-    height: 80px;
+    width: 500px;
+    height: 160px;
     border-radius: 20px;
     border: 0px solid red; 
     background-color:grey;  
@@ -35,7 +38,7 @@ body{
 }
 .brushtools_line{
     cursor: pointer;
-    width: 430px;
+    width: 480px;
     height: 20px;
     margin: 10px auto;
     /*border: 1px solid black;*/
@@ -52,7 +55,7 @@ body{
     overflow: hidden;
 }
 .brushtools_line .brushtypebtn{
-    width: 60px;
+    width: auto;
     height: 18px;
     margin-top: -5px;
     border: 1px solid rebeccapurple;
@@ -76,7 +79,7 @@ body{
 #brushtools #brushsize_baseline{
     height: 6px;
     background-color:sandybrown;
-    width: 340px;
+    width: 370px;
     border-radius: 3px;
     display:inline-block; 
     position: relative;

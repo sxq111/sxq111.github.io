@@ -6,6 +6,7 @@
         <script type="text/javascript" src="sxqui/sxqui.js"></script>
         <script type="text/javascript" src="edit.js"></script>
          <script type="text/javascript" src="brush.js"></script>
+         <script type="text/javascript" src="download.js"></script>
     </head>
     <body>
 
@@ -18,15 +19,23 @@
                                 </div>
                             </div>
                     </div>
-                                            <div class="brushtools_line">
+                        <div class="brushtools_line">
                         <div id="brushsize_text">Brush Type</div>
                             <div class="brushtypebtn">Normal</div>
                             <div class="brushtypebtn">  Dot  </div>
                              <div class="brushtypebtn">Line</div>
                             <div class="brushtypebtn">  Rect  </div>
                             <div class="brushtypebtn">  Round  </div>
+                            <div class="brushtypebtn">  FillRect  </div>
+                            <div class="brushtypebtn">  FillRound  </div>
                             </div>
+                             <div class="brushtools_line">
+                            <div id="brushsize_text">Eraser</div>
+                            <div class="brushtypebtn">Eraser</div>
+                        </div>
+                
                 </div>
+                       
            
             <div id="pickerdiv">
                 <canvas id="pickercanvas" width="200" height="200"></canvas>
@@ -64,15 +73,15 @@
                         <p>ReDo</p>
                     </div>
                     <div id="btn3" class="btn">
-                        <p>SetData</p>
+                        <p>Save</p>
                     </div>
                     <div id="btn4" class="btn">
-                        <p>PutData</p>
+                        <p>Open</p>
                     </div>
                 </div>
                 <!--  <div id="test"></div>-->
                 <canvas id="canvas" width="400" height="400"></canvas>
-                
+                <input type="file" id="loadfile"  ></input>
             </div>
 
        
