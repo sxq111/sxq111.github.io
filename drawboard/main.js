@@ -34,6 +34,7 @@ var sxqtools={
     //console.log(selectedtarget.style.backgroundColor);
     },
     currentContext:null,
+    isClear:undefined
 };
 
 
@@ -62,12 +63,20 @@ function main()
         //undo
         editor.undo();
         console.log(editor);
+        if(editor.get().isClear)
+        {
+            sxqtools.isClear=true;
+        }
         context.drawImage(editor.get(),0,0);
         
     };
     var btn2=document.getElementById("btn2");
     btn2.onclick=function(){
         editor.redo();
+        if(editor.get().isClear)
+        {
+            sxqtools.isClear=true;
+        }
         context.drawImage(editor.get(),0,0);
     };
 
@@ -136,6 +145,25 @@ function main()
        loadfile.click();
 
     }
+
+    var btn5=document.getElementById("btn5");
+    btn5.onclick=function()
+    {
+        if(sxqtools.isClear===false)
+            {
+                context.fillStyle="#fff";
+                context.fillRect(0,0,canvas.width,canvas.height);
+                sxqtools.isClear=true;
+                var img=new Image();
+                img.src=canvas.toDataURL();
+                img.isClear=true;
+                editor.add(img);
+            }else{
+                alert("Is Cleared Already !");
+                return;
+            }
+    }
+
     //-------colors  drag----------
     var colors=document.getElementById("colors");
     sxqui.createDragable(colors);
@@ -294,6 +322,7 @@ brushList[7].addEventListener("click",function(e){
 
 brush.setDotBrush(canvas);
 canvas.addEventListener("mousedown",function(){
+    sxqtools.isClear=false;
     if(sxqtools.currentColor &&sxqtools.currentColor.style.backgroundColor)
         {
             context.strokeStyle=sxqtools.currentColor.style.backgroundColor;
