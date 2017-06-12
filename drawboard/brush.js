@@ -10,7 +10,8 @@ var brush={
     setRoundBrush:setRoundBrush,
     setFillRectBrush:setFillRectBrush,
     setFillRoundBrush:setFillRoundBrush,
-    setEraser:setEraser
+    setEraser:setEraser,
+    setCurvebrush:setCurvebrush
 };
 function setEraser(canvas){
     var context=canvas.getContext("2d");
@@ -223,5 +224,83 @@ function setFillRoundBrush(canvas)
     }
     canvas.onmouseup=function(){
         canvas.onmousemove=null;
+    }
+}
+
+function setCurvebrush(canvas)
+{
+    var context=canvas.getContext("2d");
+    context.lineCap="round";
+    var finishline=false;
+    var tempimg;
+    var x1,y1,x2,y2;
+    canvas.onmousedown=function(e)
+    {
+        tempimg=new Image();
+        tempimg.src=canvas.toDataURL();
+        var oldx=e.offsetX;
+        var oldy=e.offsetY;
+        x1=oldx;
+        y1=oldy;
+        context.lineCap="round";
+        context.lineWidth=brush.size;
+        canvas.onmousemove=function(e2)
+        {
+            context.drawImage(tempimg,0,0);
+            context.beginPath();
+            context.moveTo(oldx,oldy);
+            context.lineTo(e2.offsetX,e2.offsetY);
+            x2=e2.offsetX;
+            y2=e2.offsetY;
+            context.stroke();
+        }
+    }
+    canvas.onmouseup=function(){
+        canvas.onmousemove=null;
+        canvas.onmousedown=null;
+        if(!finishline)
+        {
+            finishline=true;
+            canvas.onmousedown=function(e){
+                context.drawImage(tempimg,0,0);
+                context.beginPath();
+                context.moveTo(x1,y1);
+                context.quadraticCurveTo(e.offsetX,e.offsetY,x2,y2);
+                context.stroke();
+                canvas.onmousemove=function(e2){
+                    context.drawImage(tempimg,0,0);
+                    context.beginPath();
+                    context.moveTo(x1,y1);
+                    var midx=(x1+x2)/2;
+                    var midy=(y1+y2)/2;
+                    context.quadraticCurveTo(2*e2.offsetX-midx,2*e2.offsetY-midy,x2,y2);
+                    context.stroke();
+                }
+            }
+        }else{
+            finishline=false;
+                canvas.onmousedown=function(e)
+            {
+                tempimg=new Image();
+                tempimg.src=canvas.toDataURL();
+                var oldx=e.offsetX;
+                var oldy=e.offsetY;
+                x1=oldx;
+                y1=oldy;
+                context.lineCap="round";
+                context.lineWidth=brush.size;
+                canvas.onmousemove=function(e2)
+                {
+                    context.drawImage(tempimg,0,0);
+                    context.beginPath();
+                    context.moveTo(oldx,oldy);
+                    context.lineTo(e2.offsetX,e2.offsetY);
+                    x2=e2.offsetX;
+                    y2=e2.offsetY;
+                    context.stroke();
+                }
+            }
+        }
+    
     }
 }

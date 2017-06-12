@@ -87,36 +87,7 @@ function main()
         download(canvas);
     }
 
-    ///-----------------------open-----------------
-// function doInput(id){
-//     var inputObj = document.createElement('input');
-//     inputObj.addEventListener('change',readFile,false);
-//     inputObj.type = 'file';
-//     inputObj.accept = 'image/*';
-//     inputObj.id = id;
-//     inputObj.click();
-//     console.log("clk");
-// }
-// function readFile(){
-//     var file = this.files[0];//获取input输入的图片
-//     if(!/image\/\w+/.test(file.type)){
-//         alert("请确保文件为图像类型");
-//         return false;
-//     }//判断是否图片，在移动端由于浏览器对调用file类型处理不同，虽然加了accept = 'image/*'，但是还要再次判断
-//     console.log("clk1");
-//     var reader = new FileReader();
-//     reader.readAsDataURL(file);//转化成base64数据类型
-//     console.log("clk2");
-//     reader.onload = function(e){
-//         console.log("file load");
-//             var theimg=new Image();
-//             theimg.src=this.result;
-//             theimg.onload=function()
-//             {
-//                 context.drawImage(theimg,0,0);
-//             }
-//         }
-//     }
+
     var btn4=document.getElementById("btn4");
     var loadfile= document.getElementById("loadfile");
     loadfile.addEventListener("change",function(){
@@ -316,6 +287,9 @@ brushList[6].addEventListener("click",function(e){
     brush.setFillRoundBrush(canvas);
 },false);
 brushList[7].addEventListener("click",function(e){
+    brush.setCurvebrush(canvas);
+},false);
+brushList[8].addEventListener("click",function(e){
     brush.setEraser(canvas);
 },false);
 //-------------draw methods--------------
