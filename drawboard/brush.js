@@ -234,6 +234,7 @@ function setCurvebrush(canvas)
     var finishline=false;
     var tempimg;
     var x1,y1,x2,y2;
+
     canvas.onmousedown=function(e)
     {
         tempimg=new Image();

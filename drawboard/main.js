@@ -43,6 +43,11 @@ function main()
 {
    console.log(sxqtools.hasOwnProperty("toRGB"));
     var canvas=document.getElementById("canvas");
+    var cw= getComputedStyle(canvas,null).width;
+    var cy= getComputedStyle(canvas,null).height;
+    console.log(cw+','+cy);
+    canvas.width=Number.parseInt(cw);
+    canvas.height=Number.parseInt(cy);
     var context=canvas.getContext("2d");
     context.fillStyle="#fff";
     context.fillRect(0,0,canvas.width,canvas.height);
